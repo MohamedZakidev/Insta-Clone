@@ -1,7 +1,7 @@
 import { Box, Container, Flex, Image, Text, VStack } from "@chakra-ui/react"
 import AuthForm from "../../components/AuthForm"
 
-function SignUp() {
+function AuthPage() {
     return (
         <Flex minH={"100vh"} justifyContent={"center"} alignItems={"center"} px={4}>
             <Container maxW={"800px"} padding={0}>
@@ -24,4 +24,4 @@ function SignUp() {
     )
 }
 
-export default SignUp
+export default AuthPage
