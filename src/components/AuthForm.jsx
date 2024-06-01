@@ -2,10 +2,10 @@ import { Box, VStack, Image, Input, Button, Flex, Text } from "@chakra-ui/react"
 import { useState } from "react"
 
 function AuthForm() {
-    const isLogin = useState(true)
+    const [isLogin, setIsLogin] = useState(true)
     return (
         <>
-            <Box border={"1px solid gray"} borderRadius={4} padding={5}>
+            <Box border={"1px"} borderColor={"gray.300"} padding={5}>
                 <VStack spacing={4} padding={5}>
                     <Image src="logo.png" alt="Instagram  logo" />
                     <Input
@@ -45,9 +45,19 @@ function AuthForm() {
                 </VStack>
             </Box>
 
-            <Box border={"1px solid gray"} padding={5} w={"full"}>
-                <Flex alignItems={"center"} justifyContent={"space-between"} border={"1px solid gray"}>
-                    <Text>Don&apos;t have an account? <Button padding={0} bg={"none"}>SignUp</Button></Text>
+            <Box border={"1px"} borderColor={"gray.300"} padding={3} w={"full"}>
+                <Flex alignItems={"center"} justifyContent={"center"}>
+                    <Text>
+                        {isLogin ?
+                            "Don't have an account?" :
+                            "Already have an account?"
+                        }
+                    </Text>
+                    <Button fontSize={"sm"} ml={2} variant={"link"} color={"blue.500"}
+                        onClick={() => setIsLogin(!isLogin)}
+                    >
+                        {isLogin ? "Sign up" : "Log in"}
+                    </Button>
                 </Flex>
             </Box>
         </>
