@@ -1,4 +1,4 @@
-import { Box, VStack, Image, Input, Button, Flex, Text } from "@chakra-ui/react"
+import { Box, VStack, Image, Input, Button, Flex, Text, FormControl } from "@chakra-ui/react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -42,43 +42,45 @@ function AuthForm() {
                     <Image src="logo.png" alt="Instagram  logo" />
 
                     {/*  */}
-                    <Input
-                        type="email"
-                        placeholder="Email"
-                        fontSize={14}
-                        name="email"
-                        value={email}
-                        onChange={handleChange}
-                    />
-                    <Input
-                        type="password"
-                        placeholder="Password"
-                        fontSize={14}
-                        name="password"
-                        value={password}
-                        onChange={handleChange}
-                    />
-
-                    {!isLogin ? (
+                    <FormControl display={"flex"} flexDirection={"column"} gap={4}>
                         <Input
-                            type="password"
-                            placeholder="Confirm password"
+                            type="email"
+                            placeholder="Email"
                             fontSize={14}
-                            name="confirmPassword"
-                            value={confirmPassword}
+                            name="email"
+                            value={email}
                             onChange={handleChange}
                         />
-                    ) : null}
+                        <Input
+                            type="password"
+                            placeholder="Password"
+                            fontSize={14}
+                            name="password"
+                            value={password}
+                            onChange={handleChange}
+                        />
 
-                    <Button
-                        colorScheme="blue"
-                        size={"sm"}
-                        alignSelf={"stretch"}
-                        type="submit"
-                        onClick={handleAuth}
-                    >
-                        {isLogin ? "Log in" : "Sign up"}
-                    </Button>
+                        {!isLogin ? (
+                            <Input
+                                type="password"
+                                placeholder="Confirm password"
+                                fontSize={14}
+                                name="confirmPassword"
+                                value={confirmPassword}
+                                onChange={handleChange}
+                            />
+                        ) : null}
+
+                        <Button
+                            colorScheme="blue"
+                            size={"sm"}
+                            alignSelf={"stretch"}
+                            type="submit"
+                            onClick={handleAuth}
+                        >
+                            {isLogin ? "Log in" : "Sign up"}
+                        </Button>
+                    </FormControl>
                     {/*  */}
 
                     <Flex alignItems={"center"} gap={4} w={"full"} my={4}>
