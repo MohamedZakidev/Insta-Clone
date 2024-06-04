@@ -1,0 +1,28 @@
+.mainContainer {
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding: 2.5em 1em;
+}
+
+.feedPostsContainer {
+    width: 100%;
+}
+
+.suggestedUsersContainer {
+    /* border: 1px solid magenta; */
+    grid-column: 3;
+    display: none;
+}
+
+@media (min-width: 900px) {
+    .mainContainer {
+        width: 70%;
+        grid-template-columns: 2fr .5fr 1fr;
+    }
+    .suggestedUsersContainer {
+        display: block;
+    }
+}

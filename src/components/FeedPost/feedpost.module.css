@@ -1,0 +1,7 @@
+.feedPost {
+    border: 1px solid magenta;
+}
+.feedPostHeader {
+    display: flex;
+    justify-content: space-between;
+}

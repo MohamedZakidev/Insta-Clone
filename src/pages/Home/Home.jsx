@@ -1,9 +1,16 @@
+import FeedPost from "../../components/FeedPost/FeedPost"
+import styles from "../../styles/home.module.css"
 
 function Home() {
     return (
-        <div>
-            Home
-        </div>
+        <main className={styles.mainContainer}>
+            <section className={styles.feedPostsContainer}>
+                <FeedPost />
+            </section>
+            <section className={styles.suggestedUsersContainer}>
+                suggested users
+            </section>
+        </main>
     )
 }
 
