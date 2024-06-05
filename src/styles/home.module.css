@@ -4,12 +4,12 @@
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
-    padding: 2.5em 1em;
+    margin: 2.5em 0;
 }
 
 .feedPostsContainer {
     width: 100%;
-    max-width: 550px;
+    /* max-width: 550px; */
 }
 
 .suggestedUsersContainer {

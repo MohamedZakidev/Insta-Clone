@@ -1,5 +1,5 @@
 .feedPost {
-    border: 1px solid magenta;
+    /* border: 1px solid magenta; */
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -7,5 +7,9 @@
 .feedPostHeader {
     display: flex;
     justify-content: space-between;
-    /* border: 3px solid red; */
+    padding: 0 1em;
+}
+
+.feedPostFooter {
+    padding: 0 1em;
 }
