@@ -55,9 +55,10 @@ function FeedPost() {
                         <CommentLogo />
                     </Box>
                 </Flex>
-                <div>user name and caption</div>
-                <div>veiw all 100 comments</div>
-                <div>input for comment</div>
+                <Text>{likesCount && likesCount === 1 ? `${likesCount} like` : `${likesCount} likes`}</Text>
+                <Text>user name and caption</Text>
+                <Text>veiw all 100 comments</Text>
+                <Text>input for comment</Text>
             </div>
         </div>
     )

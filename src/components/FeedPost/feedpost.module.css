@@ -12,4 +12,8 @@
 
 .feedPostFooter {
     padding: 0 1em;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    /* gap: 8px; */
 }
