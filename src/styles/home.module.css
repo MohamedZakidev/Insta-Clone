@@ -4,12 +4,11 @@
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
-    margin: 2.5em 0;
+    margin: 2.5em auto;
 }
 
 .feedPostsContainer {
     width: 100%;
-    /* max-width: 550px; */
 }
 
 .suggestedUsersContainer {
@@ -18,12 +17,15 @@
     display: none;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 768px) {
     .mainContainer {
         width: 70%;
         grid-template-columns: 2fr .5fr 1fr;
     }
     
+    .feedPostsContainer {
+        max-width: 600px;
+    }
     .suggestedUsersContainer {
         display: block;
     }
