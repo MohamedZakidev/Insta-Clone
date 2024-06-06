@@ -1,12 +1,23 @@
-import { Avatar, Box, Button, Flex, Image, Text } from "@chakra-ui/react"
+import { Avatar, Box, Button, Flex, Image, Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react"
 import styles from "./feedpost.module.css"
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from "../../../public/assets/constants"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 function FeedPost() {
     const [isLiked, setIsLiked] = useState(false)
     const [likesCount, setLikesCount] = useState(0)
-    console.log(isLiked);
+    const [comment, setComment] = useState("")
+    const [isLoading, setIsLoading] = useState(true)
+    //make a skeleton 
+
+    const inputRef = useRef()
+    const inputRefValue = inputRef.current?.value
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 2000)
+    }, [])
 
     function handleLikes() {
         console.log("click");
@@ -55,10 +66,40 @@ function FeedPost() {
                         <CommentLogo />
                     </Box>
                 </Flex>
-                <Text>{likesCount && likesCount === 1 ? `${likesCount} like` : `${likesCount} likes`}</Text>
-                <Text>user name and caption</Text>
-                <Text>veiw all 100 comments</Text>
-                <Text>input for comment</Text>
+                <Text fontWeight={600} fontSize={"sm"}>{likesCount ? likesCount === 1 ? `${likesCount} like` : `${likesCount} likes` : null}</Text>
+                <Text fontSize={"sm"} fontWeight={700} maxW={"40ch"}>
+                    Ana de armas
+                    <Text as={"span"} fontWeight={400} ml={3}>Feeling Good</Text>
+                </Text>
+                <Text color={"gray.500"} fontSize={"sm"}>Veiw all 100 comments</Text>
+                <InputGroup>
+                    <Input
+                        fontSize={14}
+                        variant={"flushed"}
+                        placeholder={"Add a commnet..."}
+                        _placeholder={{
+                            color: "gray.500"
+                        }}
+                        ref={inputRef}
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                    />
+                    {inputRefValue &&
+                        <InputRightElement>
+                            <Button
+                                fontSize={14}
+                                color={"blue.500"}
+                                fontWeight={600}
+                                bg={"transparent"}
+                                _hover={{
+                                    color: "white"
+                                }}
+                            >
+                                Post
+                            </Button>
+                        </InputRightElement>
+                    }
+                </InputGroup>
             </div>
         </div>
     )

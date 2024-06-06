@@ -6,6 +6,7 @@ function Home() {
         <main className={styles.mainContainer}>
             <section className={styles.feedPostsContainer}>
                 <FeedPost />
+                <FeedPost />
             </section>
             <section className={styles.suggestedUsersContainer}>
                 suggested users

@@ -9,6 +9,7 @@
 
 .feedPostsContainer {
     width: 100%;
+    max-width: 450px;
 }
 
 .suggestedUsersContainer {
@@ -23,9 +24,6 @@
         grid-template-columns: 2fr .5fr 1fr;
     }
     
-    .feedPostsContainer {
-        max-width: 600px;
-    }
     .suggestedUsersContainer {
         display: block;
     }

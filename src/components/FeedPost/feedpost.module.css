@@ -1,8 +1,8 @@
 .feedPost {
-    /* border: 1px solid magenta; */
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-bottom: 2em;
 }
 .feedPostHeader {
     display: flex;
@@ -12,8 +12,13 @@
 
 .feedPostFooter {
     padding: 0 1em;
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
-    /* gap: 8px; */
+    gap: 6px;
+}
+
+@media (min-width: 768px) {
+    .feedPostHeader, .feedPostFooter {
+        padding: 0;
+    }
 }
