@@ -1,7 +1,7 @@
-import { Avatar, Box, Button, Flex, Image, Input, InputGroup, InputRightElement, Skeleton, SkeletonCircle, SkeletonText, Text, VStack } from "@chakra-ui/react"
-import styles from "./feedpost.module.css"
-import { CommentLogo, NotificationsLogo, UnlikeLogo } from "../../../public/assets/constants"
 import { useEffect, useRef, useState } from "react"
+import styles from "./feedpost.module.css"
+import { Avatar, Box, Button, Flex, Image, Input, InputGroup, InputRightElement, Skeleton, SkeletonCircle, Text } from "@chakra-ui/react"
+import { CommentLogo, NotificationsLogo, UnlikeLogo } from "../../../public/assets/constants"
 
 function FeedPost() {
     const [isLiked, setIsLiked] = useState(false)

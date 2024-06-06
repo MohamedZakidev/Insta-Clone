@@ -1,4 +1,5 @@
 import FeedPost from "../../components/FeedPost/FeedPost"
+import SuggestedUsers from "../../components/SuggestedUsers/SuggestedUsers"
 import styles from "../../styles/home.module.css"
 
 function Home() {
@@ -9,7 +10,7 @@ function Home() {
                 <FeedPost />
             </section>
             <section className={styles.suggestedUsersContainer}>
-                suggested users
+                <SuggestedUsers />
             </section>
         </main>
     )

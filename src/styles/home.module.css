@@ -1,19 +1,20 @@
 .mainContainer {
     width: 100%;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr;
-    justify-items: center;
     margin: 2.5em auto;
+    border: 1px solid magenta;
 }
 
 .feedPostsContainer {
     width: 100%;
     max-width: 450px;
+    border: 1px solid magenta;
+
 }
 
 .suggestedUsersContainer {
-    /* border: 1px solid magenta; */
+    border: 1px solid magenta;
     grid-column: 3;
     display: none;
 }
@@ -22,9 +23,11 @@
     .mainContainer {
         width: 70%;
         grid-template-columns: 2fr .5fr 1fr;
+        justify-items: center;
     }
     
     .suggestedUsersContainer {
         display: block;
+        width: 100%;
     }
 }
