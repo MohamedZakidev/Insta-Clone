@@ -3,27 +3,24 @@
     display: grid;
     grid-template-columns: 1fr;
     margin: 2.5em auto;
-    border: 1px solid magenta;
+    justify-items: center;
 }
 
 .feedPostsContainer {
     width: 100%;
     max-width: 450px;
-    border: 1px solid magenta;
 
 }
 
 .suggestedUsersContainer {
-    border: 1px solid magenta;
     grid-column: 3;
     display: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
     .mainContainer {
         width: 70%;
-        grid-template-columns: 2fr .5fr 1fr;
-        justify-items: center;
+        grid-template-columns: 2fr .1fr 1fr;
     }
     
     .suggestedUsersContainer {

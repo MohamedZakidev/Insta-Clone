@@ -1,5 +1,5 @@
 import FeedPost from "../../components/FeedPost/FeedPost"
-import SuggestedUsers from "../../components/SuggestedUsers/SuggestedUsers"
+import SuggestedUsers from "../../components/SuggestedUsers"
 import styles from "../../styles/home.module.css"
 
 function Home() {

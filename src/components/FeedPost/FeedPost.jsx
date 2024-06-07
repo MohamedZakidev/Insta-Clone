@@ -62,6 +62,7 @@ function FeedPost() {
                                     bg={"none"}
                                     transition={"0.2s ease-in-out"}
                                     padding={0}
+                                    letterSpacing={"1px"}
                                 >
                                     Unfollow
                                 </Button>

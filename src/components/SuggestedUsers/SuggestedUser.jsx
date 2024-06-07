@@ -1,7 +1,7 @@
 function SuggestedUser() {
     return (
         <div>
-            jhjg
+            dasdds
         </div>
     )
 }
