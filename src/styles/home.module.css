@@ -13,7 +13,6 @@
 }
 
 .suggestedUsersContainer {
-    grid-column: 3;
     display: none;
 }
 
@@ -26,5 +25,7 @@
     .suggestedUsersContainer {
         display: block;
         width: 100%;
+        grid-column: 3;
+        max-width: 300px;
     }
 }

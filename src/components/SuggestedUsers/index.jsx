@@ -18,11 +18,16 @@ function SuggestedUsers() {
                     See all
                 </Link>
             </Flex>
-            <SuggestedUser />
-            <SuggestedUser />
-            <SuggestedUser />
-            <SuggestedFooter />
-
+            {
+                [1, 2, 3, 4].map((_, index) => (
+                    <SuggestedUser
+                        key={index}
+                        username="daniel"
+                        avatar="img1.png"
+                        numFollowers={13132}
+                    />
+                ))
+            }
         </Flex >
     )
 }

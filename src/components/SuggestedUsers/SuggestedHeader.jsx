@@ -7,7 +7,7 @@ function SuggestedHeader() {
             <Link as={RouterLink} to="#">
                 <Avatar size={"sm"} src="profilepic.png" />
             </Link>
-            <Text fontWeight={"bold"}>username</Text>
+            <Text fontWeight={"bold"}>Ana de Armas</Text>
             <Link
                 as={RouterLink}
                 fontSize={14}
