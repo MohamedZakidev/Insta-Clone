@@ -5,7 +5,10 @@ function ProfileHeader() {
         <Flex
             py={10}
             gap={4}
-            justifyContent={"center"}
+            justifyContent={{
+                base: "center",
+                sm: "flex-start"
+            }}
             alignItems={"center"}
             flexDirection={{ base: "column", sm: "row" }}
         >
