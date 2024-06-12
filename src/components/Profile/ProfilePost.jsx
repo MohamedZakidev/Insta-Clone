@@ -1,7 +1,7 @@
 function ProfilePost() {
     return (
         <div>
-            ProfilePost
+            Profile Post
         </div>
     )
 }
