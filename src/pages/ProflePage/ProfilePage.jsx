@@ -5,7 +5,7 @@ import ProfilePost from "../../components/Profile/ProfilePost"
 
 function ProfilePage() {
     return (
-        <Container maxW={"container.lg"} py={{ base: 7, sm: 20 }}>
+        <Container maxW={"container.lg"} px={5} py={{ base: 7, sm: 20 }}>
             <ProfileHeader />
             <Flex
                 px={{ base: 2, sm: 4 }}

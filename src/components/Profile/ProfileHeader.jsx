@@ -4,13 +4,14 @@ function ProfileHeader() {
     return (
         <Flex
             py={10}
-            gap={4}
+            gap={{ base: 4, md: 8 }}
             justifyContent={{
                 base: "center",
-                sm: "flex-start"
+                xl: "flex-start"
             }}
             alignItems={"center"}
             flexDirection={{ base: "column", sm: "row" }}
+            px={{ md: 5 }}
         >
             <AvatarGroup size={{ base: "xl", md: "2xl" }}>
                 <Avatar name='ana de armas' src='img1.png' alt="Profile picture" />
