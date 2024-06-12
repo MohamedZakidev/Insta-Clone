@@ -10,14 +10,12 @@ function ProfilePosts() {
             setIsLoading(false)
         }, 2000)
     }, [])
-    console.log("dsadsd");
 
     return (
         <Grid
-            border={"1px solid red"}
             templateColumns={{
-                sm: "repeat(1, 1fr)",
-                md: "repeat(3, 1fr)"
+                base: "repeat(1, 1fr)",
+                sm: "repeat(3, 1fr)"
             }}
             gap={1}
         >
@@ -32,7 +30,10 @@ function ProfilePosts() {
             ) :
                 (
                     <>
-                        <ProfilePost />
+                        <ProfilePost img="/img1.png" />
+                        <ProfilePost img="/img2.png" />
+                        <ProfilePost img="/img3.png" />
+                        <ProfilePost img="/img4.png" />
                     </>
                 )
             }

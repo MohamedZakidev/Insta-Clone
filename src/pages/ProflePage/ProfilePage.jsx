@@ -1,11 +1,11 @@
 import { Container, Flex } from "@chakra-ui/react"
 import ProfileHeader from "../../components/Profile/ProfileHeader"
 import ProfileTabs from "../../components/Profile/ProfileTabs"
-import ProfilePost from "../../components/Profile/ProfilePost"
+import ProfilePosts from "../../components/Profile/ProfilePosts"
 
 function ProfilePage() {
     return (
-        <Container maxW={"container.lg"} px={5} py={{ base: 7, sm: 20 }}>
+        <Container maxW={"container.lg"} px={5}>
             <ProfileHeader />
             <Flex
                 px={{ base: 2, sm: 4 }}
@@ -14,7 +14,7 @@ function ProfilePage() {
                 flexDirection={"column"}
             >
                 <ProfileTabs />
-                <ProfilePost />
+                <ProfilePosts />
             </Flex>
         </Container>
     )

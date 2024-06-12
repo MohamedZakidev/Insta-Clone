@@ -3,12 +3,9 @@ import { Avatar, AvatarGroup, Button, Flex, Text } from '@chakra-ui/react'
 function ProfileHeader() {
     return (
         <Flex
-            py={10}
+            py={{ base: 5, md: "70px" }}
             gap={{ base: 4, md: 8 }}
-            justifyContent={{
-                base: "center",
-                xl: "flex-start"
-            }}
+            justifyContent={"center"}
             alignItems={"center"}
             flexDirection={{ base: "column", sm: "row" }}
             px={{ md: 5 }}
