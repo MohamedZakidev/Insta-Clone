@@ -1,7 +1,8 @@
-import { Avatar, Box, Divider, Flex, GridItem, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react"
+import { Avatar, Box, Divider, Flex, GridItem, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, VStack, useDisclosure } from "@chakra-ui/react"
 import { AiFillHeart } from "react-icons/ai"
 import { FaComment } from "react-icons/fa"
 import { MdDelete } from "react-icons/md"
+import Comment from "../Comment"
 
 function ProfilePost({ img }) {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -48,11 +49,10 @@ function ProfilePost({ img }) {
                 size={{ base: "3xl", md: "5xl" }}
             >
                 <ModalOverlay />
-                <ModalContent pb={4} bg={"black"} border={"1px solid"} borderColor={"whiteAlpha.200"}  >
+                <ModalContent bg={"black"} border={"1px solid"} borderColor={"whiteAlpha.200"}  >
                     <ModalBody p={0}>
                         <Flex gap={4} w={{ base: "90%", sm: "70%", md: "full" }} mx={"auto"}>
                             <Box
-                                borderRadius={4}
                                 border={"1px solid"}
                                 borderColor={"whiteAlpha.300"}
                                 flex={1.5}
@@ -76,9 +76,14 @@ function ProfilePost({ img }) {
                                     </Box>
                                 </Flex>
                                 <Divider orientation='horizontal' my={4} bg={"gray.500"} />
-                                <Flex>
-                                    {/* {work here} */}
-                                </Flex>
+                                <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
+                                    <Comment
+                                        createdAt="1d ago"
+                                        username="ana_de"
+                                        profilePic="profilepc.png"
+                                        text="this a really nice comment"
+                                    />
+                                </VStack>
                             </Flex>
                         </Flex>
                     </ModalBody>
