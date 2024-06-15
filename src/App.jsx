@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home"
 import AuthPage from "./pages/AuthPage/AuthPage"
 import Layout from "./components/Layout"
 import ProfilePage from "./pages/ProflePage/ProfilePage"
+import "./index.css"
 
 function App() {
   return (

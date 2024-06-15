@@ -2,32 +2,16 @@ import { useEffect, useRef, useState } from "react"
 import styles from "./feedpost.module.css"
 import { Avatar, Box, Button, Flex, Image, Input, InputGroup, InputRightElement, Skeleton, SkeletonCircle, Text } from "@chakra-ui/react"
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from "../../../public/assets/constants"
+import FeedPostFooter from "./FeedPostFooter"
 
 function FeedPost() {
-    const [isLiked, setIsLiked] = useState(false)
-    const [likesCount, setLikesCount] = useState(0)
-    const [comment, setComment] = useState("")
-    //make a skeleton 
-
-    const inputRef = useRef()
-    const inputRefValue = inputRef.current?.value
-
     const [isLoading, setIsLoading] = useState(true)
+
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false)
         }, 2000)
     }, [])
-
-    function handleLikes() {
-        if (isLiked) {
-            setIsLiked(false)
-            setLikesCount(prev => prev - 1)
-        } else {
-            setIsLiked(true)
-            setLikesCount(prev => prev + 1)
-        }
-    }
 
     return (
         <div className={styles.feedPost}>
@@ -71,50 +55,7 @@ function FeedPost() {
                         <div className={styles.feedPostBody}>
                             <Image src="img1.png" alt="user profile picture" />
                         </div>
-                        <div className={styles.feedPostFooter}>
-                            <Flex gap={4}>
-                                <Box onClick={handleLikes} cursor={"pointer"}>
-                                    {!isLiked ? <NotificationsLogo /> : <UnlikeLogo />}
-                                </Box>
-                                <Box cursor={"pointer"}>
-                                    <CommentLogo />
-                                </Box>
-                            </Flex>
-                            <Text fontWeight={600} fontSize={"sm"}>{likesCount ? likesCount === 1 ? `${likesCount} like` : `${likesCount} likes` : null}</Text>
-                            <Text fontSize={"sm"} fontWeight={700} maxW={"40ch"}>
-                                Ana de armas
-                                <Text as={"span"} fontWeight={400} ml={3}>Feeling Good</Text>
-                            </Text>
-                            <Text color={"gray.500"} fontSize={"sm"}>Veiw all 100 comments</Text>
-                            <InputGroup>
-                                <Input
-                                    fontSize={14}
-                                    variant={"flushed"}
-                                    placeholder={"Add a commnet..."}
-                                    _placeholder={{
-                                        color: "gray.500"
-                                    }}
-                                    ref={inputRef}
-                                    value={comment}
-                                    onChange={(e) => setComment(e.target.value)}
-                                />
-                                {inputRefValue &&
-                                    <InputRightElement>
-                                        <Button
-                                            fontSize={14}
-                                            color={"blue.500"}
-                                            fontWeight={600}
-                                            bg={"transparent"}
-                                            _hover={{
-                                                color: "white"
-                                            }}
-                                        >
-                                            Post
-                                        </Button>
-                                    </InputRightElement>
-                                }
-                            </InputGroup>
-                        </div>
+                        <FeedPostFooter />
                     </>
                 )
             }

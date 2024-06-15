@@ -10,13 +10,6 @@
     padding: 0 1em;
 }
 
-.feedPostFooter {
-    padding: 0 1em;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
 @media (min-width: 768px) {
     .feedPostHeader, .feedPostFooter {
         padding: 0;

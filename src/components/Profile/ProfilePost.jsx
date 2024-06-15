@@ -1,8 +1,9 @@
-import { Avatar, Box, Divider, Flex, GridItem, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, VStack, useDisclosure } from "@chakra-ui/react"
+import { Avatar, Box, Divider, Flex, GridItem, Image, Modal, ModalBody, ModalContent, ModalOverlay, Text, VStack, useDisclosure } from "@chakra-ui/react"
 import { AiFillHeart } from "react-icons/ai"
 import { FaComment } from "react-icons/fa"
 import { MdDelete } from "react-icons/md"
 import Comment from "../Comment"
+import FeedPostFooter from "../FeedPost/FeedPostFooter"
 
 function ProfilePost({ img }) {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -49,7 +50,7 @@ function ProfilePost({ img }) {
                 size={{ base: "3xl", md: "5xl" }}
             >
                 <ModalOverlay />
-                <ModalContent bg={"black"} border={"1px solid"} borderColor={"whiteAlpha.200"}  >
+                <ModalContent bg={"black"} border={"1px solid"} borderColor={"whiteAlpha.200"} >
                     <ModalBody p={0}>
                         <Flex gap={4} w={{ base: "90%", sm: "70%", md: "full" }} mx={"auto"}>
                             <Box
@@ -58,9 +59,10 @@ function ProfilePost({ img }) {
                                 flex={1.5}
                                 overflow={"hidden"}
                             >
-                                <Image src={img} alt="Post picture" />
+                                <Image src={img} alt="Post picture" h={"full"} objectFit={"cover"} />
                             </Box>
                             {/* right hand side */}
+
                             <Flex flex={1} flexDirection={"column"} px={10} pt={4} display={{ base: "none", md: "flex" }}>
                                 <Flex alignItems={"center"} justifyContent={"space-between"}>
                                     <Flex alignItems={"center"} gap={2}>
@@ -83,7 +85,52 @@ function ProfilePost({ img }) {
                                         profilePic="profilepc.png"
                                         text="this a really nice comment"
                                     />
+                                    <Comment
+                                        createdAt="1d ago"
+                                        username="ana_de"
+                                        profilePic="profilepc.png"
+                                        text="this a really nice comment"
+                                    />
+                                    <Comment
+                                        createdAt="1d ago"
+                                        username="ana_de"
+                                        profilePic="profilepc.png"
+                                        text="this a really nice comment"
+                                    />
+                                    <Comment
+                                        createdAt="1d ago"
+                                        username="ana_de"
+                                        profilePic="profilepc.png"
+                                        text="this a really nice comment"
+                                    />
+                                    <Comment
+                                        createdAt="1d ago"
+                                        username="ana_de"
+                                        profilePic="profilepc.png"
+                                        text="this a really nice comment"
+                                    />
+                                    <Comment
+                                        createdAt="1d ago"
+                                        username="ana_de"
+                                        profilePic="profilepc.png"
+                                        text="this a really nice comment"
+                                    />
+                                    <Comment
+                                        createdAt="1d ago"
+                                        username="ana_de"
+                                        profilePic="profilepc.png"
+                                        text="this a really nice comment"
+                                    />
+                                    <Comment
+                                        createdAt="1d ago"
+                                        username="ana_de"
+                                        profilePic="profilepc.png"
+                                        text="this a really nice comment"
+                                    />
+
                                 </VStack>
+                                <Divider justifySelf={"flex-end"} my={4} bg={"gray.800"} />
+                                <FeedPostFooter />
                             </Flex>
                         </Flex>
                     </ModalBody>
