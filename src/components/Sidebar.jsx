@@ -5,6 +5,7 @@ import { AiFillHome } from "react-icons/ai"
 import { BiLogOut } from "react-icons/bi"
 
 function Sidebar() {
+
     const sidebarItems = [
         {
             icon: <AiFillHome size={25} />,
@@ -103,10 +104,8 @@ function Sidebar() {
                     openDelay={500}
                     label="Log out"
                 >
-                    <Link
-                        to={"/auth"}
-                        as={RouterLink}
-                        display={"flex"}
+                    <Flex
+                        onClick={handleLogOut}
                         alignItems={"center"}
                         ml={{ base: 2, md: 0 }}
                         _hover={{
@@ -120,7 +119,7 @@ function Sidebar() {
                     >
                         <BiLogOut size={25} />
                         <Text ml={4} display={{ base: "none", md: "block" }}>Log out</Text>
-                    </Link>
+                    </Flex>
                 </Tooltip>
             </Flex>
         </Box >
