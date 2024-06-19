@@ -15,7 +15,7 @@ function SignUp() {
 
     const [showPassword, setShowPassword] = useState(false)
 
-    const { loading, error, signup } = useSignUpWithEmailAndPassword()
+    const { loading, error, handleSignUp } = useSignUpWithEmailAndPassword()
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -83,7 +83,7 @@ function SignUp() {
                 alignSelf={"stretch"}
                 type="submit"
                 isLoading={loading}
-                onClick={() => signup(formData)}
+                onClick={() => handleSignUp(formData)}
             >
                 Sign up
             </Button>
