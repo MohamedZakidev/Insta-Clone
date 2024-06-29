@@ -1,12 +1,13 @@
-import { Avatar, Box, Divider, Flex, GridItem, Image, Modal, ModalBody, ModalContent, ModalOverlay, Text, VStack, useDisclosure } from "@chakra-ui/react"
-import { AiFillHeart } from "react-icons/ai"
-import { FaComment } from "react-icons/fa"
-import { MdDelete } from "react-icons/md"
-import Comment from "../Comment"
-import FeedPostFooter from "../FeedPost/FeedPostFooter"
+import { Avatar, Box, Divider, Flex, GridItem, Image, Modal, ModalBody, ModalContent, ModalOverlay, Text, VStack, useDisclosure } from "@chakra-ui/react";
+import { AiFillHeart } from "react-icons/ai";
+import { FaComment } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import Comment from "../Comment";
+import FeedPostFooter from "../FeedPost/FeedPostFooter";
 
-function ProfilePost({ img }) {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+function ProfilePost({ img, likes = 7, comments = 7, username = "Ana de armas", profilePic = "profilepc.png", commentsData = [] }) {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     return (
         <>
             <GridItem
@@ -19,7 +20,7 @@ function ProfilePost({ img }) {
                 onClick={onOpen}
             >
                 <Flex
-                    opacity={0} s
+                    opacity={0}
                     _hover={{ opacity: 1 }}
                     position={"absolute"}
                     bg={"blackAlpha.700"}
@@ -33,12 +34,12 @@ function ProfilePost({ img }) {
                     gap={6}
                 >
                     <Flex alignItems={"center"}>
-                        <AiFillHeart size={20} />
-                        <Text fontWeight={"bold"} ml={2}>7</Text>
+                        <AiFillHeart size={20} aria-label="likes" />
+                        <Text fontWeight={"bold"} ml={2}>{likes}</Text>
                     </Flex>
                     <Flex alignItems={"center"}>
-                        <FaComment size={20} />
-                        <Text fontWeight={"bold"} ml={2}>7</Text>
+                        <FaComment size={20} aria-label="comments" />
+                        <Text fontWeight={"bold"} ml={2}>{comments}</Text>
                     </Flex>
                 </Flex>
                 <Image src={img} w={"full"} h={"full"} objectFit={"cover"} alt="profile post" />
@@ -50,7 +51,7 @@ function ProfilePost({ img }) {
                 size={{ base: "3xl", md: "5xl" }}
             >
                 <ModalOverlay />
-                <ModalContent bg={"black"} border={"1px solid"} borderColor={"whiteAlpha.200"} >
+                <ModalContent bg={"black"} border={"1px solid"} borderColor={"whiteAlpha.200"}>
                     <ModalBody p={0}>
                         <Flex gap={4} w={{ base: "90%", sm: "70%", md: "full" }} mx={"auto"}>
                             <Box
@@ -61,73 +62,33 @@ function ProfilePost({ img }) {
                             >
                                 <Image src={img} alt="Post picture" h={"full"} objectFit={"cover"} />
                             </Box>
-                            {/* right hand side */}
 
+                            {/* Right hand side */}
                             <Flex flex={1} flexDirection={"column"} px={10} pt={4} display={{ base: "none", md: "flex" }}>
                                 <Flex alignItems={"center"} justifyContent={"space-between"}>
                                     <Flex alignItems={"center"} gap={2}>
-                                        <Avatar src={img} size={"sm"} name="Ana de armas" />
-                                        <Text fontWeight={"bold"} fontSize={12}>Ana de armas</Text>
+                                        <Avatar src={profilePic} size={"sm"} name={username} />
+                                        <Text fontWeight={"bold"} fontSize={12}>{username}</Text>
                                     </Flex>
                                     <Box
                                         p={1}
                                         borderRadius={4}
                                         _hover={{ bg: "whiteAlpha.300", color: "red" }}
                                     >
-                                        <MdDelete size={20} cursor={"pointer"} />
+                                        <MdDelete size={20} cursor={"pointer"} aria-label="delete" />
                                     </Box>
                                 </Flex>
                                 <Divider orientation='horizontal' my={4} bg={"gray.500"} />
                                 <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
-                                    <Comment
-                                        createdAt="1d ago"
-                                        username="ana_de"
-                                        profilePic="profilepc.png"
-                                        text="this a really nice comment"
-                                    />
-                                    <Comment
-                                        createdAt="1d ago"
-                                        username="ana_de"
-                                        profilePic="profilepc.png"
-                                        text="this a really nice comment"
-                                    />
-                                    <Comment
-                                        createdAt="1d ago"
-                                        username="ana_de"
-                                        profilePic="profilepc.png"
-                                        text="this a really nice comment"
-                                    />
-                                    <Comment
-                                        createdAt="1d ago"
-                                        username="ana_de"
-                                        profilePic="profilepc.png"
-                                        text="this a really nice comment"
-                                    />
-                                    <Comment
-                                        createdAt="1d ago"
-                                        username="ana_de"
-                                        profilePic="profilepc.png"
-                                        text="this a really nice comment"
-                                    />
-                                    <Comment
-                                        createdAt="1d ago"
-                                        username="ana_de"
-                                        profilePic="profilepc.png"
-                                        text="this a really nice comment"
-                                    />
-                                    <Comment
-                                        createdAt="1d ago"
-                                        username="ana_de"
-                                        profilePic="profilepc.png"
-                                        text="this a really nice comment"
-                                    />
-                                    <Comment
-                                        createdAt="1d ago"
-                                        username="ana_de"
-                                        profilePic="profilepc.png"
-                                        text="this a really nice comment"
-                                    />
-
+                                    {commentsData.map((comment, index) => (
+                                        <Comment
+                                            key={index}
+                                            createdAt={comment.createdAt}
+                                            username={comment.username}
+                                            profilePic={comment.profilePic}
+                                            text={comment.text}
+                                        />
+                                    ))}
                                 </VStack>
                                 <Divider justifySelf={"flex-end"} my={4} bg={"gray.800"} />
                                 <FeedPostFooter />
@@ -137,7 +98,7 @@ function ProfilePost({ img }) {
                 </ModalContent>
             </Modal>
         </>
-    )
+    );
 }
 
-export default ProfilePost
+export default ProfilePost;

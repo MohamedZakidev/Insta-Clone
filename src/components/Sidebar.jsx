@@ -32,7 +32,7 @@ function Sidebar() {
         {
             icon: <Avatar size={"sm"} name="Burak" src="/profilepic.png" />,
             text: "Profile",
-            link: "#"
+            link: ":username"
         }
     ]
     return (
