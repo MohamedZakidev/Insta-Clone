@@ -1,6 +1,7 @@
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
-import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
+import { Alert, AlertDescription, AlertIcon, Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
 import { useState } from "react"
+import useLogin from "../../hooks/useLogin"
 
 function Login() {
 
@@ -11,6 +12,8 @@ function Login() {
     const { email, password } = formData
 
     const [showPassword, setShowPassword] = useState(false)
+
+    const { loading, error, handleLogin } = useLogin()
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -48,11 +51,20 @@ function Login() {
                     </Button>
                 </InputRightElement>
             </InputGroup>
+
+            {error?.message &&
+                <Alert status='error' fontSize={13} p={2} borderRadius={4}>
+                    <AlertIcon fontSize={12} />
+                    <AlertDescription>{error.message}</AlertDescription>
+                </Alert>
+            }
             <Button
                 colorScheme="blue"
                 size={"sm"}
                 alignSelf={"stretch"}
                 type="submit"
+                isLoading={loading}
+                onClick={() => handleLogin(formData)}
             >
                 Log in
             </Button>

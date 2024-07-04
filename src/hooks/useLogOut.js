@@ -7,6 +7,7 @@ function useLogOut() {
     const [signOut, loading, error] = useSignOut(auth);
     const showToast = useShowToast()
     const logoutUser = useAuthStore((state) => state.logout)
+
     async function handleLogOut() {
         try {
             await signOut()

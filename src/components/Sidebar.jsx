@@ -6,7 +6,7 @@ import { AiFillHome } from "react-icons/ai"
 import { BiLogOut } from "react-icons/bi"
 
 function Sidebar() {
-    const { handleLogOut, loading, error } = useLogOut()
+    const { handleLogOut, loading } = useLogOut()
     const sidebarItems = [
         {
             icon: <AiFillHome size={25} />,

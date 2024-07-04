@@ -22,7 +22,7 @@ function useSignUpWithEmailAndPassword() {
         const q = query(usersRef, where("username", "==", username))
         const querySnapshot = await getDocs(q)
         if (!querySnapshot.empty) {
-            showToast("Error", "Username already exist", "error")
+            showToast("Error", "Username is already taken", "error")
             return
         }
 
