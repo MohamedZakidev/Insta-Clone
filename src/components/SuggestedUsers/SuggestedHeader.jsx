@@ -1,11 +1,12 @@
 import { Avatar, Flex, Text, Link, Button } from "@chakra-ui/react"
 import { Link as RouterLink } from "react-router-dom"
 import useLogOut from "../../hooks/useLogOut"
+import useAuthStore from "../../store/authStore"
 
 function SuggestedHeader() {
     const { handleLogOut, loading } = useLogOut()
-
-
+    const user = useAuthStore(state => state.user)
+    console.log(user);
     return (
         <Flex justifyContent={"space-between"} alignItems={"center"}>
             <Link as={RouterLink} to="#">

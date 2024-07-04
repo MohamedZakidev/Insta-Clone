@@ -9,7 +9,6 @@ import "./index.css"
 
 function App() {
   const [user] = useAuthState(auth)
-
   return (
     <>
       <BrowserRouter>
