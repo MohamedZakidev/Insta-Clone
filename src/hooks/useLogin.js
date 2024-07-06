@@ -22,6 +22,7 @@ function useLogin() {
             if (userCred) {
                 const docRef = doc(firestore, "users", userCred.user.uid);
                 const docSnap = await getDoc(docRef);
+                console.log(docSnap.data());
                 localStorage.setItem("user-info", JSON.stringify(docSnap.data()))
                 loginUser(docSnap.data())
             }

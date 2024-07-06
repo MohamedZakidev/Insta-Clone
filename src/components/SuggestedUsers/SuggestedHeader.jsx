@@ -6,32 +6,35 @@ import useAuthStore from "../../store/authStore"
 function SuggestedHeader() {
     const { handleLogOut, loading } = useLogOut()
     const user = useAuthStore(state => state.user)
-    console.log(user);
-    return (
-        <Flex justifyContent={"space-between"} alignItems={"center"}>
-            <Link as={RouterLink} to="#">
-                <Avatar size={"sm"} src="profilepic.png" />
-            </Link>
-            <Text fontWeight={"bold"}>Ana de Armas</Text>
-            <Button
-                size={"xs"}
-                bg={"transparent"}
-                fontSize={14}
-                fontWeight={"600"}
-                color={"blue.400"}
-                _hover={{
-                    color: "white",
-                    bg: "transparent"
-                }}
-                letterSpacing={"1px"}
-                isLoading={loading}
-                onClick={handleLogOut}
-            >
-                Log out
-            </Button>
-        </Flex>
 
-    )
+    if (user) {
+        return (
+            <Flex justifyContent={"space-between"} alignItems={"center"}>
+                <Link as={RouterLink} to={user.username}>
+                    <Avatar size={"sm"} src={user.profilePicURL} />
+                </Link>
+                <Link as={RouterLink} to={user.username}>
+                    <Text fontWeight={"bold"}>{user.username}</Text>
+                </Link>
+                <Button
+                    size={"xs"}
+                    bg={"transparent"}
+                    fontSize={14}
+                    fontWeight={"600"}
+                    color={"blue.400"}
+                    _hover={{
+                        color: "white",
+                        bg: "transparent"
+                    }}
+                    letterSpacing={"1px"}
+                    isLoading={loading}
+                    onClick={handleLogOut}
+                >
+                    Log out
+                </Button>
+            </Flex>
+        )
+    }
 }
 
 export default SuggestedHeader

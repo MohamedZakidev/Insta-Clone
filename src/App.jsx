@@ -8,14 +8,15 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import "./index.css"
 
 function App() {
-  const [user] = useAuthState(auth)
+  const [authUser] = useAuthState(auth)
+
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={user ? <Home /> : <Navigate to={"auth"} />} />
-            <Route path="auth" element={user ? <Navigate to="/" /> : <AuthPage />} />
+            <Route index element={authUser ? <Home /> : <Navigate to={"auth"} />} />
+            <Route path="auth" element={authUser ? <Navigate to="/" /> : <AuthPage />} />
             <Route path=":username" element={<ProfilePage />} />
           </Route>
         </Routes>
