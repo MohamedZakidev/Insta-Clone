@@ -12,7 +12,6 @@ function useShowToast() {
             isClosable: true,
         })
     }
-
     return showToast
 }
 
