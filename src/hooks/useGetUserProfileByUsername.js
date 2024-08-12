@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import useShowToast from "./useShowToast"
-import { collection, getDoc, getDocs, query, where } from "firebase/firestore"
+import { collection, getDocs, query, where } from "firebase/firestore"
 import { firestore } from "../firebase/firebase"
-import { useParams } from "react-router-dom"
 import useUserProfileStore from "../store/userProfileStore"
 
 function useGetUserProfileByUsername(username) {
