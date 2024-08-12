@@ -1,4 +1,4 @@
-import { Avatar, Box, Divider, Flex, GridItem, Image, Modal, ModalBody, ModalContent, ModalOverlay, Text, VStack, useDisclosure } from "@chakra-ui/react";
+import { Avatar, Box, Center, Divider, Flex, GridItem, Image, Modal, ModalBody, ModalContent, ModalOverlay, Text, VStack, useDisclosure } from "@chakra-ui/react";
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
@@ -52,8 +52,8 @@ function ProfilePost({ img, likes = 7, comments = 7, username = "Ana de armas", 
             >
                 <ModalOverlay />
                 <ModalContent bg={"black"} border={"1px solid"} borderColor={"whiteAlpha.200"}>
-                    <ModalBody p={0}>
-                        <Flex gap={4} w={{ base: "90%", sm: "70%", md: "full" }} mx={"auto"}>
+                    <ModalBody p={0} >
+                        <Flex gap={4} w={{ base: "90%", sm: "70%", md: "full" }} mx={"auto"} minHeight={"70vh"}>
                             <Box
                                 border={"1px solid"}
                                 borderColor={"whiteAlpha.300"}
