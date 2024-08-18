@@ -15,12 +15,12 @@ function Layout() {
     const checkingUserIsAuth = !user && loading
 
     if (checkingUserIsAuth) {
-        return <LayoutSpinnr />
+        return <LayoutSpinner />
     }
 
     return (
         <Flex flexDirection={canRenderNavbar ? "column" : "row"}>
-            {canRenderSidebar ? <Sidebar /> : null}
+            {canRenderSidebar ? <Sidebar user={user} /> : null}
             {canRenderNavbar ? <Navbar /> : null}
             <Outlet />
         </Flex>
@@ -29,7 +29,7 @@ function Layout() {
 
 export default Layout
 
-function LayoutSpinnr() {
+function LayoutSpinner() {
     return (
         <Flex flexDir='column' h='100vh' alignItems='center' justifyContent='center'>
             <Spinner size='xl' />

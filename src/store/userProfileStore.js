@@ -1,9 +1,9 @@
 import { create } from "zustand"
 
-const useUserProfileStore = create((set) => ({
+const userProfileStore = create((set) => ({
     userProfile: null,
     setUserProfile: (userProfile) => set({ userProfile })
     //add post
 }))
 
-export default useUserProfileStore
+export default userProfileStore
