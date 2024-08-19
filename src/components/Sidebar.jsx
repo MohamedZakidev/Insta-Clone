@@ -4,6 +4,7 @@ import { Avatar, Box, Button, Flex, Link, Text, Tooltip } from "@chakra-ui/react
 import { CreatePostLogo, InstagramLogo, InstagramMobileLogo, NotificationsLogo, SearchLogo } from "../../public/assets/constants"
 import { AiFillHome } from "react-icons/ai"
 import { BiLogOut } from "react-icons/bi"
+import useGetUserProfileByUid from "../hooks/useGetUserProfileByUid"
 
 function Sidebar({ user }) {
     const { handleLogOut, loading } = useLogOut()

@@ -4,11 +4,12 @@ import ProfileTabs from "../../components/Profile/ProfileTabs"
 import ProfilePosts from "../../components/Profile/ProfilePosts"
 import { Link as RouterLink, useParams } from "react-router-dom"
 import useGetUserProfileByUid from "../../hooks/useGetUserProfileByUid"
+import { useId, useState } from "react"
 
 function ProfilePage() {
     const { uid } = useParams()
+    //problem here because of the change of the uid doesnot trigger a rerender
     const { isLoading, userProfile } = useGetUserProfileByUid(uid)
-    //get the user profile and pass it to profileheader as a prop
     const userNotFound = !isLoading && !userProfile
     if (userNotFound) {
         return <UserNotFound />
@@ -17,7 +18,7 @@ function ProfilePage() {
     return (
         <Container maxW={"container.lg"} px={5}>
             {isLoading && <ProfileHeaderSkeleton />}
-            {!isLoading && userProfile ? <ProfileHeader /> : null}
+            {!isLoading && userProfile ? <ProfileHeader userProfile={userProfile} /> : null}
             <Flex
                 px={{ base: 2, sm: 4 }}
                 borderTop={"1px solid"}
