@@ -10,6 +10,7 @@ function Layout() {
     const { pathname } = useLocation()
     const [user, loading] = useAuthState(auth)
 
+
     const canRenderSidebar = pathname !== "/auth" && user
     const canRenderNavbar = pathname !== "/auth" && !user && !loading
     const checkingUserIsAuth = !user && loading

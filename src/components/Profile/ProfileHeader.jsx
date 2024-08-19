@@ -1,7 +1,10 @@
 import { Avatar, AvatarGroup, Button, Flex, Text } from '@chakra-ui/react'
 import useAuthStore from '../../store/authStore'
+import userProfileStore from '../../store/userProfileStore'
 
-function ProfileHeader({ userProfile }) {
+function ProfileHeader() {
+    const { userProfile } = userProfileStore()
+
     const authUser = useAuthStore(state => state.user)
     const isVistingOwnProfileAndAuth = authUser && authUser.uid === userProfile.uid
 
