@@ -1,12 +1,14 @@
-import { Avatar, AvatarGroup, Button, Flex, Text } from '@chakra-ui/react'
+import { Avatar, AvatarGroup, Button, Flex, Text, useDisclosure } from '@chakra-ui/react'
 import useAuthStore from '../../store/authStore'
 import userProfileStore from '../../store/userProfileStore'
+import EditProfile from './EditProfile'
 
 function ProfileHeader() {
     const { userProfile } = userProfileStore()
 
     const authUser = useAuthStore(state => state.user)
     const isVistingOwnProfileAndAuth = authUser && authUser.uid === userProfile.uid
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (
         <Flex
@@ -35,6 +37,7 @@ function ProfileHeader() {
                                     bg: "whiteAlpha.700"
                                 }}
                                 size={{ base: "xs", md: "sm" }}
+                                onClick={onOpen}
                             >
 
                                 Edit Profile
@@ -74,6 +77,7 @@ function ProfileHeader() {
                 <Text fontWeight={700}>{userProfile.fullName}</Text>
                 <Text fontSize={14}>{userProfile.bio}</Text>
             </Flex>
+            {isOpen && <EditProfile isOpen={isOpen} onOpen={onOpen} onClose={onClose} />}
         </Flex>
     )
 }
