@@ -16,13 +16,29 @@ import {
     Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import useAuthStore from "../../store/authStore";
 
 const EditProfile = ({ isOpen, onClose }) => {
+    const authUser = useAuthStore((state) => state.user)
+    console.log(authUser)
     const [formData, setFormData] = useState({
-        fullName: "",
-        username: "",
-        bio: ""
+        fullName: authUser.fullName || "",
+        username: authUser.username || "",
+        bio: authUser.bio || ""
     })
+    const { fullName, username, bio } = formData
+
+    function handleChange(e) {
+        const { name, value } = e.target
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    function handleEditeProfile() {
+        console.log("")
+    }
 
     return (
         <>
@@ -51,17 +67,17 @@ const EditProfile = ({ isOpen, onClose }) => {
 
                                 <FormControl>
                                     <FormLabel fontSize={"sm"}>Full Name</FormLabel>
-                                    <Input placeholder={"Full Name"} size={"sm"} type={"text"} />
+                                    <Input placeholder={"Full Name"} size={"sm"} type={"text"} name="fullName" value={fullName} onChange={handleChange} />
                                 </FormControl>
 
                                 <FormControl>
                                     <FormLabel fontSize={"sm"}>Username</FormLabel>
-                                    <Input placeholder={"Username"} size={"sm"} type={"text"} />
+                                    <Input placeholder={"Username"} size={"sm"} type={"text"} name="username" value={username} onChange={handleChange} />
                                 </FormControl>
 
                                 <FormControl>
                                     <FormLabel fontSize={"sm"}>Bio</FormLabel>
-                                    <Input placeholder={"Bio"} size={"sm"} type={"text"} />
+                                    <Input placeholder={"Bio"} size={"sm"} type={"text"} name="bio" value={bio} onChange={handleChange} />
                                 </FormControl>
 
                                 <Stack spacing={6} direction={["column", "row"]}>
@@ -71,6 +87,7 @@ const EditProfile = ({ isOpen, onClose }) => {
                                         w='full'
                                         size='sm'
                                         _hover={{ bg: "red.500" }}
+                                        onClick={onClose}
                                     >
                                         Cancel
                                     </Button>
@@ -80,6 +97,7 @@ const EditProfile = ({ isOpen, onClose }) => {
                                         size='sm'
                                         w='full'
                                         _hover={{ bg: "blue.500" }}
+                                        onClick={handleEditeProfile}
                                     >
                                         Submit
                                     </Button>
