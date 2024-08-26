@@ -15,12 +15,15 @@ import {
     ModalOverlay,
     Stack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useAuthStore from "../../store/authStore";
+import usePreviewImg from "../../hooks/usePreviewImg";
 
 const EditProfile = ({ isOpen, onClose }) => {
+    const fileRef = useRef(null)
     const authUser = useAuthStore((state) => state.user)
-    console.log(authUser)
+    const { selectedFile, setSelectedFile, handleImageChange } = usePreviewImg()
+
     const [formData, setFormData] = useState({
         fullName: authUser.fullName || "",
         username: authUser.username || "",
@@ -37,7 +40,7 @@ const EditProfile = ({ isOpen, onClose }) => {
     }
 
     function handleEditeProfile() {
-        console.log("")
+        console.log("") // work here to be done 
     }
 
     return (
@@ -57,10 +60,11 @@ const EditProfile = ({ isOpen, onClose }) => {
                                 <FormControl>
                                     <Stack direction={["column", "row"]} spacing={6}>
                                         <Center>
-                                            <Avatar size='xl' src={""} border={"2px solid white "} />
+                                            <Avatar size='xl' src={selectedFile} backgroundColor={"grey"} name={authUser.fullName} />
                                         </Center>
                                         <Center w='full'>
-                                            <Button w='full'>Edit Profile Picture</Button>
+                                            <Button w='full' onClick={() => fileRef.current.click()}>Edit Profile Picture</Button>
+                                            <Input type="file" hidden ref={fileRef} onChange={handleImageChange} />
                                         </Center>
                                     </Stack>
                                 </FormControl>
