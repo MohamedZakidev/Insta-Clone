@@ -20,7 +20,7 @@ function ProfileHeader() {
             px={{ md: 5 }}
         >
             <AvatarGroup size={{ base: "xl", md: "2xl" }}>
-                <Avatar backgroundColor={"grey"} name={userProfile.fullName} alt="Profile picture" />
+                <Avatar backgroundColor={"grey"} src={authUser.profilePicURL} name={userProfile.fullName} alt="Profile picture" />
             </AvatarGroup>
             {/*  */}
             <Flex flexDirection={"column"} gap={2}>

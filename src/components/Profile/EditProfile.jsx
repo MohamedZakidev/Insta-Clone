@@ -18,11 +18,13 @@ import {
 import { useRef, useState } from "react";
 import useAuthStore from "../../store/authStore";
 import usePreviewImg from "../../hooks/usePreviewImg";
+import useEditProfile from "../../hooks/useEditProfile";
 
 const EditProfile = ({ isOpen, onClose }) => {
     const fileRef = useRef(null)
     const authUser = useAuthStore((state) => state.user)
     const { selectedFile, setSelectedFile, handleImageChange } = usePreviewImg()
+    const { isUpdating, editProfile } = useEditProfile()
 
     const [formData, setFormData] = useState({
         fullName: authUser.fullName || "",
@@ -39,8 +41,10 @@ const EditProfile = ({ isOpen, onClose }) => {
         }))
     }
 
-    function handleEditeProfile() {
-        console.log("") // work here to be done 
+    async function handleEditeProfile() {
+        await editProfile(formData, selectedFile)
+        setSelectedFile(null)
+        onClose()
     }
 
     return (
@@ -60,7 +64,7 @@ const EditProfile = ({ isOpen, onClose }) => {
                                 <FormControl>
                                     <Stack direction={["column", "row"]} spacing={6}>
                                         <Center>
-                                            <Avatar size='xl' src={selectedFile} backgroundColor={"grey"} name={authUser.fullName} />
+                                            <Avatar size='xl' src={selectedFile || authUser.profilePicURL} backgroundColor={"grey"} name={authUser.fullName} />
                                         </Center>
                                         <Center w='full'>
                                             <Button w='full' onClick={() => fileRef.current.click()}>Edit Profile Picture</Button>
@@ -102,6 +106,7 @@ const EditProfile = ({ isOpen, onClose }) => {
                                         w='full'
                                         _hover={{ bg: "blue.500" }}
                                         onClick={handleEditeProfile}
+                                        isLoading={isUpdating}
                                     >
                                         Submit
                                     </Button>
