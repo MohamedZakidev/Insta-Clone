@@ -3,7 +3,7 @@ import useAuthStore from "../store/authStore"
 import useShowToast from "./useShowToast"
 import { getDownloadURL, ref, uploadString } from "firebase/storage"
 import { doc, updateDoc } from "firebase/firestore"
-import { firestore, storage } from "../firebase/firebase"
+import { auth, firestore, storage } from "../firebase/firebase"
 import userProfileStore from "../store/userProfileStore"
 
 function useEditProfile() {
@@ -27,7 +27,6 @@ function useEditProfile() {
                 await uploadString(storageRef, selectedFile, "data_url")
                 URL = await getDownloadURL(storageRef)
             }
-            console.log(URL);
 
             const updatedUser = {
                 ...authUser,
@@ -46,7 +45,6 @@ function useEditProfile() {
         } catch (error) {
             showToast("Error", error.message, "error")
         }
-        // update image url in user firebase document 
     }
 
     return { isUpdating, editProfile }

@@ -2,13 +2,16 @@ import { Avatar, AvatarGroup, Button, Flex, Text, useDisclosure } from '@chakra-
 import useAuthStore from '../../store/authStore'
 import userProfileStore from '../../store/userProfileStore'
 import EditProfile from './EditProfile'
+import useFollowUser from '../../hooks/useFollowUser'
 
 function ProfileHeader() {
     const { userProfile } = userProfileStore()
 
     const authUser = useAuthStore(state => state.user)
-    const isVistingOwnProfileAndAuth = authUser && authUser.uid === userProfile.uid
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isUpdating, isFollowing, handleFollowUSer } = useFollowUser(userProfile?.uid)
+
+    const isVistingOwnProfileAndAuth = authUser && authUser.uid === userProfile.uid
 
     return (
         <Flex
@@ -20,7 +23,7 @@ function ProfileHeader() {
             px={{ md: 5 }}
         >
             <AvatarGroup size={{ base: "xl", md: "2xl" }}>
-                <Avatar backgroundColor={"grey"} src={authUser.profilePicURL} name={userProfile.fullName} alt="Profile picture" />
+                <Avatar backgroundColor={"grey"} src={userProfile.profilePicURL} name={userProfile.fullName} alt="Profile picture" />
             </AvatarGroup>
             {/*  */}
             <Flex flexDirection={"column"} gap={2}>
@@ -54,8 +57,10 @@ function ProfileHeader() {
                                     bg: "blue.700"
                                 }}
                                 size={{ base: "xs", md: "sm" }}
+                                onClick={handleFollowUSer}
+                                isLoading={isUpdating}
                             >
-                                Follow
+                                {isFollowing ? "Unfollow" : "Follow"}
                             </Button>
                         )
                     }

@@ -4,11 +4,10 @@ import ProfileTabs from "../../components/Profile/ProfileTabs"
 import ProfilePosts from "../../components/Profile/ProfilePosts"
 import { Link as RouterLink, useParams } from "react-router-dom"
 import useGetUserProfileByUid from "../../hooks/useGetUserProfileByUid"
-import { useEffect, useState } from "react"
+import useFollowUser from "../../hooks/useFollowUser"
 
 function ProfilePage() {
     const { uid } = useParams()
-
     const { isLoading, userProfile } = useGetUserProfileByUid(uid)
 
     const userNotFound = !isLoading && !userProfile

@@ -4,7 +4,6 @@ import { Avatar, Box, Button, Flex, Link, Text, Tooltip } from "@chakra-ui/react
 import { CreatePostLogo, InstagramLogo, InstagramMobileLogo, NotificationsLogo, SearchLogo } from "../../public/assets/constants"
 import { AiFillHome } from "react-icons/ai"
 import { BiLogOut } from "react-icons/bi"
-import useGetUserProfileByUid from "../hooks/useGetUserProfileByUid"
 
 function Sidebar({ user }) {
     const { handleLogOut, loading } = useLogOut()
@@ -32,7 +31,7 @@ function Sidebar({ user }) {
         },
 
         {
-            icon: <Avatar size={"sm"} name="Burak" src="/profilepic.png" />,
+            icon: <Avatar size={"sm"} name="Burak" />, // to change burak to user name
             text: "Profile",
             link: user.uid
         }
@@ -82,7 +81,7 @@ function Sidebar({ user }) {
 
                         >
                             <Link
-                                to={item.link || null}
+                                to={item.link}
                                 as={RouterLink}
                                 display={"flex"}
                                 alignItems={"center"}
