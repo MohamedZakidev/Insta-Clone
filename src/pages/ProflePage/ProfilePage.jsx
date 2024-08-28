@@ -4,7 +4,6 @@ import ProfileTabs from "../../components/Profile/ProfileTabs"
 import ProfilePosts from "../../components/Profile/ProfilePosts"
 import { Link as RouterLink, useParams } from "react-router-dom"
 import useGetUserProfileByUid from "../../hooks/useGetUserProfileByUid"
-import useFollowUser from "../../hooks/useFollowUser"
 
 function ProfilePage() {
     const { uid } = useParams()

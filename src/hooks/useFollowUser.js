@@ -9,6 +9,7 @@ function useFollowUser(userId) {
     const [isUpdating, setIsUpdating] = useState(false)
     const [isFollowing, setIsFollowing] = useState(false)
     const { user, setUser } = useAuthStore((state) => state)
+
     const { userProfile, setUserProfile } = userProfileStore((state) => state)
     const showToast = useShowToast()
 
