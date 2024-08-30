@@ -20,7 +20,6 @@ function useFollowUser(userId) {
         }
     }, [user, userId])
 
-    ////////////////////////////////////
     async function handleFollowUSer() {
         setIsUpdating(true)
         try {

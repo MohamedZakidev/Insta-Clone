@@ -1,41 +1,13 @@
 import { Link as RouterLink } from "react-router-dom"
-import useLogOut from "../hooks/useLogOut"
-import { Avatar, Box, Button, Flex, Link, Text, Tooltip } from "@chakra-ui/react"
-import { CreatePostLogo, InstagramLogo, InstagramMobileLogo, NotificationsLogo, SearchLogo } from "../../public/assets/constants"
-import { AiFillHome } from "react-icons/ai"
+import useLogOut from "../../hooks/useLogOut"
+import { Box, Button, Flex, Link, Tooltip } from "@chakra-ui/react"
+import { InstagramLogo, InstagramMobileLogo } from "../../../public/assets/constants"
 import { BiLogOut } from "react-icons/bi"
+import SidebarItems from "./SidebarItems"
 
-function Sidebar({ user }) {
+function Sidebar() {
     const { handleLogOut, loading } = useLogOut()
 
-    const sidebarItems = [
-        {
-            icon: <AiFillHome size={25} />,
-            text: "Home",
-            link: "/"
-        },
-
-        {
-            icon: <SearchLogo />,
-            text: "Search"
-        },
-
-        {
-            icon: <NotificationsLogo />,
-            text: "Notifications"
-        },
-
-        {
-            icon: <CreatePostLogo />,
-            text: "Create",
-        },
-
-        {
-            icon: <Avatar size={"sm"} name="Burak" />, // to change burak to user name
-            text: "Profile",
-            link: user.uid
-        }
-    ]
     return (
         <Box
             w={{ base: "70px", md: "240px" }}
@@ -69,35 +41,9 @@ function Sidebar({ user }) {
                     <InstagramLogo />
                 </Link>
 
-                <Flex direction={"column"} alignItems={{ base: "flex-start", md: "flex-start" }} gap={7}>
-                    {sidebarItems.map((item, index) => (
-                        <Tooltip
-                            key={index}
-                            aria-label="A tooltip"
-                            hasArrow
-                            label={item.text}
-                            placement="right"
-                            openDelay={500}
-
-                        >
-                            <Link
-                                to={item.link}
-                                as={RouterLink}
-                                display={"flex"}
-                                alignItems={"center"}
-                                ml={{ base: 2, md: 0 }}
-                                _hover={{
-                                    bg: { md: "whiteAlpha.400" }
-                                }}
-                                padding={{ base: 2, md: 4 }}
-                                borderRadius={4}
-                                w={{ md: "full" }}
-                            >
-                                {item.icon}
-                                <Text ml={4} display={{ base: "none", md: "block" }}>{item.text}</Text>
-                            </Link>
-                        </Tooltip>
-                    ))}
+                <Flex direction={"column"} alignItems={{ base: "flex-start", md: "flex-start" }} w={"full"} gap={7}>
+                    {/* sidebar items live here */}
+                    <SidebarItems />
                 </Flex>
                 <Tooltip
                     aria-label="A tooltip"

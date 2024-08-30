@@ -23,7 +23,6 @@ function useGetUserProfileByUid(uid) {
                 let userDoc
                 querySnapshot.forEach(doc => {
                     userDoc = doc.data();
-
                 })
                 setUserProfile(userDoc)
 
