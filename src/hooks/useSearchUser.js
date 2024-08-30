@@ -8,7 +8,7 @@ function useSearchUser() {
     const [user, setUser] = useState(null)
     const showToast = useShowToast()
 
-    async function getUserProfile(username) {
+    async function getSearchedUser(username) {
         setIsLoading(true)
         try {
             const q = query(collection(firestore, "users"), where("username", "==", username))
@@ -17,6 +17,7 @@ function useSearchUser() {
                 showToast("Info", "User not found", "info")
                 return
             }
+            querySnapshot.forEach(doc => setUser(doc.data()))
             // work here
         } catch (error) {
             showToast("Error", error.message, "error")
@@ -25,6 +26,7 @@ function useSearchUser() {
         }
 
     }
+    return { isLoading, getSearchedUser, user }
 }
 
 export default useSearchUser

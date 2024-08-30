@@ -18,7 +18,7 @@ function SuggestedUsers() {
                     See all
                 </Link>
             </Flex>
-            {
+            {/* {
                 [1, 2, 3, 4].map((_, index) => (
                     <SuggestedUser
                         key={index}
@@ -27,7 +27,8 @@ function SuggestedUsers() {
                         numFollowers={13132}
                     />
                 ))
-            }
+            } */}
+            <SuggestedFooter />
         </Flex >
     )
 }
