@@ -5,7 +5,7 @@ import { firestore } from '../firebase/firebase'
 
 function useSearchUser() {
     const [isLoading, setIsLoading] = useState(false)
-    const [user, setUser] = useState(null)
+    const [searchedUser, setSearchedUser] = useState(null)
     const showToast = useShowToast()
 
     async function getSearchedUser(username) {
@@ -17,8 +17,7 @@ function useSearchUser() {
                 showToast("Info", "User not found", "info")
                 return
             }
-            querySnapshot.forEach(doc => setUser(doc.data()))
-            // work here
+            querySnapshot.forEach(doc => setSearchedUser(doc.data()))
         } catch (error) {
             showToast("Error", error.message, "error")
         } finally {
@@ -26,7 +25,7 @@ function useSearchUser() {
         }
 
     }
-    return { isLoading, getSearchedUser, user }
+    return { isLoading, getSearchedUser, searchedUser, setSearchedUser }
 }
 
 export default useSearchUser

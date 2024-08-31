@@ -5,65 +5,70 @@ import useShowToast from './useShowToast'
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
 import { firestore } from '../firebase/firebase'
 
-function useFollowUser(userId) {
+function useFollowUser(targedtedUserId) {
     const [isUpdating, setIsUpdating] = useState(false)
     const [isFollowing, setIsFollowing] = useState(false)
-    const { user, setUser } = useAuthStore((state) => state)
+    const authUser = useAuthStore((state) => state.user)
+    const setAuthUser = useAuthStore((state) => state.setUser)
 
-    const { userProfile, setUserProfile } = userProfileStore((state) => state)
+    const { userProfile, setUserProfile } = userProfileStore((state) => state) // null
     const showToast = useShowToast()
 
     useEffect(() => {
-        if (user) {
-            const isFollowing = user.following.includes(userId)
+        if (authUser) {
+            const isFollowing = authUser.following.includes(targedtedUserId)
             setIsFollowing(isFollowing)
         }
-    }, [user, userId])
+    }, [authUser, targedtedUserId])
 
     async function handleFollowUSer() {
         setIsUpdating(true)
         try {
             // Updating firebase documents
-            const currentUserRef = doc(firestore, "users", user.uid)
-            const targetedUserRef = doc(firestore, "users", userId)
+            const currentUserRef = doc(firestore, "users", authUser.uid)
+            const targetedUserRef = doc(firestore, "users", targedtedUserId)
 
             await updateDoc(currentUserRef, {
-                following: isFollowing ? arrayRemove(userId) : arrayUnion(userId)
+                following: isFollowing ? arrayRemove(targedtedUserId) : arrayUnion(targedtedUserId)
             })
 
             await updateDoc(targetedUserRef, {
-                followers: isFollowing ? arrayRemove(user.uid) : arrayUnion(user.uid)
+                followers: isFollowing ? arrayRemove(authUser.uid) : arrayUnion(authUser.uid)
             })
 
             // update userInterface by updating user and userProfile
             if (isFollowing) {
                 //unFollow
-                setUser({
-                    ...user,
-                    following: user.following.filter(uid => uid !== userId)
+                setAuthUser({
+                    ...authUser,
+                    following: authUser.following.filter(uid => uid !== targedtedUserId)
                 })
-                setUserProfile({
-                    ...userProfile,
-                    followers: userProfile.followers.filter(uid => uid !== user.uid)
-                })
+                if (userProfile) {
+                    setUserProfile({
+                        ...userProfile,
+                        followers: userProfile.followers.filter(uid => uid !== authUser.uid)
+                    })
+                }
                 localStorage.setItem("user-info", JSON.stringify({
-                    ...user,
-                    following: user.following.filter(uid => uid !== userId)
+                    ...authUser,
+                    following: authUser.following.filter(uid => uid !== targedtedUserId)
                 }))
                 setIsFollowing(false)
             } else {
                 // Follow
-                setUser({
-                    ...user,
-                    following: [...user.following, userId]
+                setAuthUser({
+                    ...authUser,
+                    following: [...authUser.following, targedtedUserId]
                 })
-                setUserProfile({
-                    ...userProfile,
-                    followers: [...userProfile.followers, user.uid]
-                })
+                if (userProfile) {
+                    setUserProfile({
+                        ...userProfile,
+                        followers: [...userProfile.followers, authUser.uid]
+                    })
+                }
                 localStorage.setItem("user-info", JSON.stringify({
-                    ...user,
-                    following: [...user.following, userId]
+                    ...authUser,
+                    following: [...authUser.following, targedtedUserId]
                 }))
                 setIsFollowing(true)
             }
