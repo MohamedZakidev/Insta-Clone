@@ -11,7 +11,7 @@ function useFollowUser(targedtedUserId) {
     const authUser = useAuthStore((state) => state.user)
     const setAuthUser = useAuthStore((state) => state.setUser)
 
-    const { userProfile, setUserProfile } = userProfileStore((state) => state) // null
+    const { userProfile, setUserProfile } = userProfileStore((state) => state)
     const showToast = useShowToast()
 
     useEffect(() => {

@@ -10,7 +10,7 @@ function Home() {
                 <FeedPost />
             </section>
             <section className={styles.suggestedUsersContainer}>
-                {/* <SuggestedUsers /> */}
+                <SuggestedUsers />
             </section>
         </main>
     )

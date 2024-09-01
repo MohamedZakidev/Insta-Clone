@@ -22,7 +22,7 @@ import SuggestedUser from "../SuggestedUsers/SuggestedUser";
 const Search = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const { isLoading, getSearchedUser, searchedUser, setSearchedUser } = useSearchUser()
+    const { isLoading, getSearchedUser, user, setUser } = useSearchUser()
     const [searchInput, setSearchInput] = useState("")
 
     function handleSearchUser(e) {
@@ -78,10 +78,9 @@ const Search = () => {
                                 </Button>
                             </Flex>
                         </form>
-                        {searchedUser && <SuggestedUser searchedUser={searchedUser} setSearchedUser={setSearchedUser} />}
+                        {user && <SuggestedUser user={user} setUser={setUser} />}
                     </ModalBody>
                 </ModalContent>
-
             </Modal>
         </>
     );
