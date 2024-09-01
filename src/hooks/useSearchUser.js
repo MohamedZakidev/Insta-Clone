@@ -10,6 +10,7 @@ function useSearchUser() {
 
     async function getSearchedUser(username) {
         setIsLoading(true)
+        setUser(null)
         try {
             const q = query(collection(firestore, "users"), where("username", "==", username))
             const querySnapshot = await getDocs(q)
