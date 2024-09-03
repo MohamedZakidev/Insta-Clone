@@ -2,8 +2,12 @@ import { create } from "zustand"
 
 const userProfileStore = create((set) => ({
     userProfile: null,
-    setUserProfile: (userProfile) => set({ userProfile })
+    setUserProfile: (userProfile) => set({ userProfile }),
     //add post
+    addPost: (post) =>
+        set(state => ({
+            userProfile: { ...state.userProfile, posts: [post.id, ...state.userProfile.posts] }
+        }))
 }))
 
 export default userProfileStore

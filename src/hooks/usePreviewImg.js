@@ -16,7 +16,7 @@ function usePreviewImg() {
                 setSelectedFile(null)
                 return
             }
-            const reader = new FileReader() // something is wrong here
+            const reader = new FileReader()
             reader.onloadend = () => {
                 setSelectedFile(reader.result)
             }

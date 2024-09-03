@@ -3,7 +3,7 @@ import useAuthStore from "../store/authStore"
 import useShowToast from "./useShowToast"
 import { getDownloadURL, ref, uploadString } from "firebase/storage"
 import { doc, updateDoc } from "firebase/firestore"
-import { auth, firestore, storage } from "../firebase/firebase"
+import { firestore, storage } from "../firebase/firebase"
 import userProfileStore from "../store/userProfileStore"
 
 function useEditProfile() {
