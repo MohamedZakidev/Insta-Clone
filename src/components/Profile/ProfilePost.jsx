@@ -21,7 +21,7 @@ function ProfilePost({ post }) {
     const showToast = useShowToast()
 
     const deletePost = usePostStore(state => state.deletePost)
-    const deletePostFromProfile = userProfileStore(state => state.deletePost)
+    const decrementPostsCount = userProfileStore(state => state.deletePost)
 
     const [isDeleting, setIsDeleting] = useState(false)
 
@@ -41,7 +41,7 @@ function ProfilePost({ post }) {
             })
             // update user interface
             deletePost(post.id)
-            deletePostFromProfile(post.id)
+            decrementPostsCount(post.id)
 
         } catch (error) {
             showToast("Error", error.message, "error")
