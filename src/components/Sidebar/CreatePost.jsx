@@ -12,13 +12,13 @@ import { firestore, storage } from "../../firebase/firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
 const CreatePost = () => {
-    const { isLoading, handleCreatePost } = useCreatePost()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [caption, setCaption] = useState("")
     const inputRef = useRef()
     const { selectedFile, setSelectedFile, handleImageChange } = usePreviewImg()
-
     const showToast = useShowToast()
+
+    const { isLoading, handleCreatePost } = useCreatePost()
 
     async function handlePostCreation() {
         try {
@@ -108,45 +108,47 @@ function useCreatePost() {
     const showToast = useShowToast()
 
     async function handleCreatePost(selectedFile, caption) {
+        if (isLoading) return;
         if (!selectedFile) { throw new Error("Please select an image") }
         setisLoading(true)
         const newPost = {
-            caption,
+            caption: caption,
             likes: [],
             comments: [],
             createdAt: Date.now(),
             createdBy: authUser.uid,
         }
-
         try {
             //1. get user ref
-            const userDocRef = await doc(firestore, "users", authUser.uid)
             //2. create posts collection and add a post document and save its ref
-            const postDocRef = await addDoc(collection(firestore, "posts", newPost))
             //3. add post id to the user Doc in the posts array
-            await updateDoc(userDocRef, { posts: arrayUnion(postDocRef.id) })
             //4. get post image ref and upload it in the storage as a string
-            const imageRef = ref(storage, `posts/${postDocRef.id}`)
-            await uploadString(imageRef, selectedFile, "data_url")
             //5. download post image url
-            const downloadURL = await getDownloadURL(imageRef)
             //6. add the image ref to the post document 
-            await updateDoc(postDocRef, { imageURL: downloadURL })
             //7. add imageURL to newpost obj do not know why just yet??
-            newPost.imageURL = downloadURL
             //8. add the post to the store post so we fetch posts from that later on i think
-            createPost({ ...newPost, id: postDocRef.id })
             //9. update userProfile to update the interface on the profile page
+            const postDocRef = await addDoc(collection(firestore, "posts"), newPost);
+            const userDocRef = doc(firestore, "users", authUser.uid);
+            const imageRef = ref(storage, `posts/${postDocRef.id}`);
+
+            await updateDoc(userDocRef, { posts: arrayUnion(postDocRef.id) });
+            await uploadString(imageRef, selectedFile, "data_url");
+            const downloadURL = await getDownloadURL(imageRef);
+
+            await updateDoc(postDocRef, { imageURL: downloadURL });
+            newPost.imageURL = downloadURL;
+
+            createPost({ ...newPost, id: postDocRef.id })
             addPost({ ...newPost, id: postDocRef.id })
 
             showToast("Success", "Post created Successfully", "success")
-
         } catch (error) {
             showToast("Error", error.message, "error")
         } finally {
             setisLoading(false)
         }
 
-        return { isLoading, handleCreatePost }
     }
+    return { isLoading, handleCreatePost }
 }
