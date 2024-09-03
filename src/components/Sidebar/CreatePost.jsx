@@ -122,26 +122,25 @@ function useCreatePost() {
         }
         try {
             //1. get user ref
-            //2. create posts collection and add a post document and save its ref
-            //3. add post id to the user Doc in the posts array
-            //4. get post image ref and upload it in the storage as a string
-            //5. download post image url
-            //6. add the image ref to the post document 
-            //7. add imageURL to newpost obj do not know why just yet??
-            //8. add the post to the store post so we fetch posts from that later on i think
-            //9. update userProfile to update the interface on the profile page
-            const postDocRef = await addDoc(collection(firestore, "posts"), newPost);
             const userDocRef = doc(firestore, "users", authUser.uid);
-            const imageRef = ref(storage, `posts/${postDocRef.id}`);
-
+            //2. create posts collection and add a post document and save its ref
+            const postDocRef = await addDoc(collection(firestore, "posts"), newPost);
+            //3. add post id to the user Doc in the posts array
             await updateDoc(userDocRef, { posts: arrayUnion(postDocRef.id) });
+            //4. get post image ref and upload it in the storage as a string
+            const imageRef = ref(storage, `posts/${postDocRef.id}`);
             await uploadString(imageRef, selectedFile, "data_url");
+            //5. download post image url
             const downloadURL = await getDownloadURL(imageRef);
 
+            //6. add the image ref to the post document 
             await updateDoc(postDocRef, { imageURL: downloadURL });
+            //7. add imageURL to newpost obj do not know why just yet??
             newPost.imageURL = downloadURL;
 
+            //8. add the post to the store post so we fetch posts from that later on i think
             createPost({ ...newPost, id: postDocRef.id })
+            //9. update userProfile to update the interface on the profile page
             if (userProfile) {
                 addPost({ ...newPost, id: postDocRef.id })
             }

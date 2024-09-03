@@ -1,12 +1,17 @@
-import { Avatar, Box, Center, Divider, Flex, GridItem, Image, Modal, ModalBody, ModalContent, ModalOverlay, Text, VStack, useDisclosure } from "@chakra-ui/react";
+import { Avatar, Button, Divider, Flex, GridItem, Image, Modal, ModalBody, ModalContent, ModalOverlay, Text, VStack, useDisclosure } from "@chakra-ui/react";
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Comment from "../Comment";
 import FeedPostFooter from "../FeedPost/FeedPostFooter";
+import userProfileStore from "../../store/userProfileStore";
+import useAuthStore from "../../store/authStore";
 
-function ProfilePost({ img, likes = 7, comments = 7, username = "Ana de armas", profilePic = "profilepc.png", commentsData = [] }) {
+function ProfilePost({ post }) {
+    const { caption, likes, comments, createdAt, createdBy, imageURL } = post
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const authUser = useAuthStore(state => state.user)
+    const userProfile = userProfileStore(state => state.userProfile)
 
     return (
         <>
@@ -35,15 +40,17 @@ function ProfilePost({ img, likes = 7, comments = 7, username = "Ana de armas", 
                 >
                     <Flex alignItems={"center"}>
                         <AiFillHeart size={20} aria-label="likes" />
-                        <Text fontWeight={"bold"} ml={2}>{likes}</Text>
+                        <Text fontWeight={"bold"} ml={2}>{likes.length}</Text>
                     </Flex>
                     <Flex alignItems={"center"}>
                         <FaComment size={20} aria-label="comments" />
-                        <Text fontWeight={"bold"} ml={2}>{comments}</Text>
+                        <Text fontWeight={"bold"} ml={2}>{comments.length}</Text>
                     </Flex>
                 </Flex>
-                <Image src={img} w={"full"} h={"full"} objectFit={"cover"} alt="profile post" />
+                <Image src={imageURL} w={"full"} h={"full"} objectFit={"cover"} alt="profile post" />
             </GridItem>
+
+
             <Modal
                 isOpen={isOpen}
                 onClose={onClose}
@@ -53,34 +60,40 @@ function ProfilePost({ img, likes = 7, comments = 7, username = "Ana de armas", 
                 <ModalOverlay />
                 <ModalContent bg={"black"} border={"1px solid"} borderColor={"whiteAlpha.200"}>
                     <ModalBody p={0} >
-                        <Flex gap={4} w={{ base: "90%", sm: "70%", md: "full" }} mx={"auto"} minHeight={"70vh"}>
-                            <Box
+                        <Flex gap={4} w={{ base: "90%", sm: "70%", md: "full" }} mx={"auto"} maxHeight={"90vh"} minHeight={"50vh"}>
+                            <Flex
                                 border={"1px solid"}
                                 borderColor={"whiteAlpha.300"}
                                 flex={1.5}
                                 overflow={"hidden"}
+                                justifyItems={"center"}
+                                justifyContent={"center"}
                             >
-                                <Image src={img} alt="Post picture" h={"full"} objectFit={"cover"} />
-                            </Box>
+                                <Image src={imageURL} alt="Post picture" h={"full"} objectFit={"cover"} border={"1px solid red"} w={"full"} />
+                            </Flex>
 
                             {/* Right hand side */}
                             <Flex flex={1} flexDirection={"column"} px={10} pt={4} display={{ base: "none", md: "flex" }}>
                                 <Flex alignItems={"center"} justifyContent={"space-between"}>
                                     <Flex alignItems={"center"} gap={2}>
-                                        <Avatar src={profilePic} size={"sm"} name={username} />
-                                        <Text fontWeight={"bold"} fontSize={12}>{username}</Text>
+                                        <Avatar src={userProfile.profilePicURL} size={"sm"} name={userProfile.username} />
+                                        <Text fontWeight={"bold"} fontSize={12}>{userProfile.username}</Text>
                                     </Flex>
-                                    <Box
-                                        p={1}
-                                        borderRadius={4}
-                                        _hover={{ bg: "whiteAlpha.300", color: "red" }}
-                                    >
-                                        <MdDelete size={20} cursor={"pointer"} aria-label="delete" />
-                                    </Box>
+                                    {authUser?.uid === userProfile.uid && (
+                                        <Button
+                                            size={"sm"}
+                                            bg={"transparent"}
+                                            p={1}
+                                            borderRadius={4}
+                                            _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
+                                        >
+                                            <MdDelete size={20} cursor={"pointer"} aria-label="delete" />
+                                        </Button>
+                                    )}
                                 </Flex>
                                 <Divider orientation='horizontal' my={4} bg={"gray.500"} />
                                 <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
-                                    {commentsData.map((comment, index) => (
+                                    {comments.map((comment, index) => (
                                         <Comment
                                             key={index}
                                             createdAt={comment.createdAt}
@@ -91,7 +104,7 @@ function ProfilePost({ img, likes = 7, comments = 7, username = "Ana de armas", 
                                     ))}
                                 </VStack>
                                 <Divider justifySelf={"flex-end"} my={4} bg={"gray.800"} />
-                                <FeedPostFooter />
+                                <FeedPostFooter likes={likes} caption={caption} comments={comments} fullName={userProfile.fullName} />
                             </Flex>
                         </Flex>
                     </ModalBody>

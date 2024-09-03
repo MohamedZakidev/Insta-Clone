@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from '../../../public/assets/constants'
 import { useLocation } from 'react-router-dom'
 
-function FeedPostFooter() {
+function FeedPostFooter({ likes, caption, comments, fullName }) {
     const [isLiked, setIsLiked] = useState(false)
     const [likesCount, setLikesCount] = useState(0)
     const [comment, setComment] = useState("")
@@ -34,8 +34,8 @@ function FeedPostFooter() {
             </Flex>
             <Text fontWeight={600} fontSize={"sm"}>{likesCount ? likesCount === 1 ? `${likesCount} like` : `${likesCount} likes` : null}</Text>
             <Text fontSize={"sm"} fontWeight={700} maxW={"40ch"}>
-                Ana de armas
-                <Text as={"span"} fontWeight={400} ml={3}>Feeling Good</Text>
+                {fullName}
+                <Text as={"span"} fontWeight={400} ml={3}>{caption}</Text>
             </Text>
             {pathname === "/" ? <Text color={"gray.500"} fontSize={"sm"}>Veiw all 100 comments</Text> : null}
             <InputGroup>
