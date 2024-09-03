@@ -103,6 +103,8 @@ function useCreatePost() {
     const [isLoading, setisLoading] = useState(false)
     const authUser = useAuthStore((state) => state.user)
     const createPost = usePostStore((state) => state.createPost)
+    const userProfile = userProfileStore((state) => state.userProfile)
+
     const addPost = userProfileStore((state) => state.addPost)
     //pathname later
     const showToast = useShowToast()
@@ -140,7 +142,9 @@ function useCreatePost() {
             newPost.imageURL = downloadURL;
 
             createPost({ ...newPost, id: postDocRef.id })
-            addPost({ ...newPost, id: postDocRef.id })
+            if (userProfile) {
+                addPost({ ...newPost, id: postDocRef.id })
+            }
 
             showToast("Success", "Post created Successfully", "success")
         } catch (error) {
