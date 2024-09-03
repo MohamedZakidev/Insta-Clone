@@ -6,12 +6,49 @@ import Comment from "../Comment";
 import FeedPostFooter from "../FeedPost/FeedPostFooter";
 import userProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/authStore";
+import useShowToast from "../../hooks/useShowToast";
+import { useState } from "react";
+import { deleteObject, ref } from "firebase/storage";
+import { firestore, storage } from "../../firebase/firebase";
+import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import usePostStore from "../../store/postStore";
 
 function ProfilePost({ post }) {
     const { caption, likes, comments, createdAt, createdBy, imageURL } = post
     const { isOpen, onOpen, onClose } = useDisclosure();
     const authUser = useAuthStore(state => state.user)
     const userProfile = userProfileStore(state => state.userProfile)
+    const showToast = useShowToast()
+
+    const deletePost = usePostStore(state => state.deletePost)
+    const deletePostFromProfile = userProfileStore(state => state.deletePost)
+
+    const [isDeleting, setIsDeleting] = useState(false)
+
+    async function handleDeletePost() {
+        if (!window.confirm("Are you sure you want to delete this post ?")) return
+        if (isDeleting) return
+        setIsDeleting(true)
+        try {
+            // update firebase data base
+            await deleteDoc(doc(firestore, "posts", post.id))
+            const imageRef = ref(storage, `posts/${post.id}`);
+            await deleteObject(imageRef)
+
+            const userDocRef = doc(firestore, "users", authUser.uid);
+            await updateDoc(userDocRef, {
+                posts: arrayRemove(post.id)
+            })
+            // update user interface
+            deletePost(post.id)
+            deletePostFromProfile(post.id)
+
+        } catch (error) {
+            showToast("Error", error.message, "error")
+        } finally {
+            setIsDeleting(false)
+        }
+    }
 
     return (
         <>
@@ -69,7 +106,7 @@ function ProfilePost({ post }) {
                                 justifyItems={"center"}
                                 justifyContent={"center"}
                             >
-                                <Image src={imageURL} alt="Post picture" h={"full"} objectFit={"cover"} border={"1px solid red"} w={"full"} />
+                                <Image src={imageURL} alt="Post picture" h={"full"} objectFit={"cover"} w={"full"} />
                             </Flex>
 
                             {/* Right hand side */}
@@ -86,6 +123,8 @@ function ProfilePost({ post }) {
                                             p={1}
                                             borderRadius={4}
                                             _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
+                                            isLoading={isDeleting}
+                                            onClick={handleDeletePost}
                                         >
                                             <MdDelete size={20} cursor={"pointer"} aria-label="delete" />
                                         </Button>
@@ -103,7 +142,9 @@ function ProfilePost({ post }) {
                                         />
                                     ))}
                                 </VStack>
-                                <Divider justifySelf={"flex-end"} my={4} bg={"gray.800"} />
+                                {comments.length === 0 ? <Text color={"whiteAlpha.500"} alignSelf={"center"}>No Comments yet...</Text> :
+                                    <Divider justifySelf={"flex-end"} my={4} bg={"gray.800"} />
+                                }
                                 <FeedPostFooter likes={likes} caption={caption} comments={comments} fullName={userProfile.fullName} />
                             </Flex>
                         </Flex>
