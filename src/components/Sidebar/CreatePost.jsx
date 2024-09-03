@@ -8,13 +8,28 @@ import useAuthStore from "../../store/authStore";
 import usePostStore from "../../store/postStore";
 import userProfileStore from "../../store/userProfileStore";
 import { addDoc, arrayUnion, collection, doc, updateDoc } from "firebase/firestore";
-import { firestore } from "../../firebase/firebase";
+import { firestore, storage } from "../../firebase/firebase";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
 const CreatePost = () => {
+    const { isLoading, handleCreatePost } = useCreatePost()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [caption, setCaption] = useState("")
     const inputRef = useRef()
     const { selectedFile, setSelectedFile, handleImageChange } = usePreviewImg()
+
+    const showToast = useShowToast()
+
+    async function handlePostCreation() {
+        try {
+            await handleCreatePost(selectedFile, caption)
+            onClose()
+            setSelectedFile(null)
+            setCaption("")
+        } catch (error) {
+            showToast("Error", error.message, "error")
+        }
+    }
 
     return (
         <>
@@ -74,7 +89,7 @@ const CreatePost = () => {
                         )}
                     </ModalBody>
                     <ModalFooter>
-                        <Button mr={3}>Post</Button>
+                        <Button mr={3} isLoading={isLoading} onClick={handlePostCreation}>Post</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
@@ -104,19 +119,34 @@ function useCreatePost() {
         }
 
         try {
-            // here is the big deal
             //1. get user ref
             const userDocRef = await doc(firestore, "users", authUser.uid)
-            //2. create post document and save its ref
+            //2. create posts collection and add a post document and save its ref
             const postDocRef = await addDoc(collection(firestore, "posts", newPost))
             //3. add post id to the user Doc in the posts array
             await updateDoc(userDocRef, { posts: arrayUnion(postDocRef.id) })
-            // code here
+            //4. get post image ref and upload it in the storage as a string
+            const imageRef = ref(storage, `posts/${postDocRef.id}`)
+            await uploadString(imageRef, selectedFile, "data_url")
+            //5. download post image url
+            const downloadURL = await getDownloadURL(imageRef)
+            //6. add the image ref to the post document 
+            await updateDoc(postDocRef, { imageURL: downloadURL })
+            //7. add imageURL to newpost obj do not know why just yet??
+            newPost.imageURL = downloadURL
+            //8. add the post to the store post so we fetch posts from that later on i think
+            createPost({ ...newPost, id: postDocRef.id })
+            //9. update userProfile to update the interface on the profile page
+            addPost({ ...newPost, id: postDocRef.id })
+
+            showToast("Success", "Post created Successfully", "success")
 
         } catch (error) {
             showToast("Error", error.message, "error")
         } finally {
             setisLoading(false)
         }
+
+        return { isLoading, handleCreatePost }
     }
 }
