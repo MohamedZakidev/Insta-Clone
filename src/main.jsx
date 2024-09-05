@@ -9,7 +9,7 @@ import { mode } from "@chakra-ui/theme-tools";
 const styles = {
   global: (props) => ({
     body: {
-      bg: mode("white", "#000")(props),
+      bg: mode("white", "#111")(props),
       color: mode("gray.800", "whiteAlpha.900")(props)
     }
   })

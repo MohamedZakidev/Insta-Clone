@@ -133,13 +133,7 @@ function ProfilePost({ post }) {
                                 <Divider orientation='horizontal' my={4} bg={"gray.500"} />
                                 <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
                                     {comments.map((comment, index) => (
-                                        <Comment
-                                            key={index}
-                                            createdAt={comment.createdAt}
-                                            username={comment.username}
-                                            profilePic={comment.profilePic}
-                                            text={comment.text}
-                                        />
+                                        <Comment key={index} comment={comment} />
                                     ))}
                                 </VStack>
                                 {comments.length === 0 ? <Text color={"whiteAlpha.500"} alignSelf={"center"}>No Comments yet...</Text> :
