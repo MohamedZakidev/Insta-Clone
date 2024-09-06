@@ -1,42 +1,39 @@
-import React, { useState } from 'react'
-import useAuthStore from '../store/authStore'
-import useShowToast from './useShowToast'
-import { firestore } from '../firebase/firebase'
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
-import usePostStore from '../store/postStore'
+import { useState } from "react";
+import useShowToast from "./useShowToast";
+import useAuthStore from "../store/authStore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { firestore } from "../firebase/firebase";
+import usePostStore from "../store/postStore";
 
-function usePostComment() {
-    const [isLoading, setIsLoading] = useState(false)
-    const authUser = useAuthStore((state) => state.user)
-    const addComment = usePostStore(state => state.addComment)
+const usePostComment = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const showToast = useShowToast();
+    const authUser = useAuthStore((state) => state.user);
+    const addComment = usePostStore((state) => state.addComment);
 
-    const showToast = useShowToast()
-
-    async function handlePostComment(postId, comment) {
-        setIsLoading(true)
-        if (isLoading) return
-        if (!authUser) {
-            return showToast("Info", "you must be logged in first", "info")
-        }
-        setIsLoading(true)
+    const handlePostComment = async (postId, comment) => {
+        if (isLoading) return;
+        if (!authUser) return showToast("Error", "You must be logged in to comment", "error");
+        setIsLoading(true);
         const newComment = {
-            postId,
             comment,
             createdAt: Date.now(),
-            createdBy: authUser.uid
-        }
+            createdBy: authUser.uid,
+            postId,
+        };
         try {
             await updateDoc(doc(firestore, "posts", postId), {
-                comments: arrayUnion(newComment)
-            })
-            addComment(postId, newComment)
+                comments: arrayUnion(newComment),
+            });
+            addComment(postId, newComment);
         } catch (error) {
-            showToast("Error", error.message, "error")
+            showToast("Error", error.message, "error");
         } finally {
-            setIsLoading(false)
+            setIsLoading(false);
         }
-    }
-    return { isLoading, handlePostComment }
-}
+    };
 
-export default usePostComment
+    return { isLoading, handlePostComment };
+};
+
+export default usePostComment;

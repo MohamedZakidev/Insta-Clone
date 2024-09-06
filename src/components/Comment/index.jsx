@@ -1,20 +1,23 @@
 import { Avatar, Flex, Text } from '@chakra-ui/react'
+import useGetUserProfileByUid from '../../hooks/useGetUserProfileByUid'
 
-function Comment({ createdAt, username, profilePic, text }) {
+function Comment({ comment }) {
+    // const { userProfile } = useGetUserProfileByUid(comment.createdBy)
+    // console.log(userProfile)
     return (
         <Flex gap={3}>
-            <Avatar src={profilePic} name={username} size={"sm"} />
+            {/* <Avatar src={userProfile.profilePicURL} name={userProfile.username} size={"sm"} /> */}
             <Flex direction={"column"}>
                 <Flex gap={2}>
                     <Text fontSize={12} fontWeight={"bold"}>
-                        {username}
+                        {/* {userProfile.username} */}
                     </Text>
                     <Text fontSize={14}>
-                        {text}
+                        {comment.comment}
                     </Text>
                 </Flex>
                 <Text fontSize={12} color={"gray"}>
-                    {createdAt}
+                    {comment.createdAt}
                 </Text>
             </Flex>
         </Flex>

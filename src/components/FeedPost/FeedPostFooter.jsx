@@ -1,16 +1,21 @@
 import { Box, Button, Flex, Input, InputGroup, InputRightElement, Text } from '@chakra-ui/react'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from '../../../public/assets/constants'
 import { useLocation } from 'react-router-dom'
+import usePostComment from '../../hooks/usePostComment'
+import useShowToast from '../../hooks/useShowToast'
 
-function FeedPostFooter({ likes, caption, comments, fullName }) {
+function FeedPostFooter({ post, fullName }) {
     const [isLiked, setIsLiked] = useState(false)
-    const [likesCount, setLikesCount] = useState(0)
     const [comment, setComment] = useState("")
-
-    const inputRef = useRef()
-    const inputRefValue = inputRef.current?.value
+    const [likesCount, setLikesCount] = useState(0)
     const { pathname } = useLocation()
+
+    // const inputRefValue = inputRef.current?.value
+    const { isLoading, handlePostComment } = usePostComment()
+    const showToast = useShowToast()
+
+    const { caption, likes, comments, id } = post
 
     function handleLikes() {
         if (isLiked) {
@@ -21,6 +26,16 @@ function FeedPostFooter({ likes, caption, comments, fullName }) {
             setLikesCount(prev => prev + 1)
         }
     }
+
+    async function handleSubmitComment() {
+        try {
+            await handlePostComment(id, comment)
+            setComment("")
+        } catch (error) {
+            showToast("Error", error.message, "error")
+        }
+    }
+
 
     return (
         <Flex p={"0 1em"} flexDirection={"column"} gap={2} mt={"auto"}>
@@ -46,11 +61,10 @@ function FeedPostFooter({ likes, caption, comments, fullName }) {
                     _placeholder={{
                         color: "gray.500"
                     }}
-                    ref={inputRef}
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                 />
-                {inputRefValue &&
+                {comment &&
                     <InputRightElement>
                         <Button
                             fontSize={14}
@@ -60,6 +74,8 @@ function FeedPostFooter({ likes, caption, comments, fullName }) {
                             _hover={{
                                 color: "white"
                             }}
+                            isLoading={isLoading}
+                            onClick={handleSubmitComment}
                         >
                             Post
                         </Button>

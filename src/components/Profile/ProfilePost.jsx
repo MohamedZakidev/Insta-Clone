@@ -14,7 +14,7 @@ import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import usePostStore from "../../store/postStore";
 
 function ProfilePost({ post }) {
-    const { caption, likes, comments, createdAt, createdBy, imageURL } = post
+    const { likes, comments, imageURL } = post
     const { isOpen, onOpen, onClose } = useDisclosure();
     const authUser = useAuthStore(state => state.user)
     const userProfile = userProfileStore(state => state.userProfile)
@@ -132,14 +132,13 @@ function ProfilePost({ post }) {
                                 </Flex>
                                 <Divider orientation='horizontal' my={4} bg={"gray.500"} />
                                 <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
-                                    {comments.map((comment, index) => (
-                                        <Comment key={index} comment={comment} />
-                                    ))}
+                                    {comments.length === 0 ?
+                                        <Text color={"whiteAlpha.500"} alignSelf={"center"}>No Comments yet...</Text> :
+                                        comments.map((comment, index) => (
+                                            <Comment key={index} comment={comment} />
+                                        ))}
                                 </VStack>
-                                {comments.length === 0 ? <Text color={"whiteAlpha.500"} alignSelf={"center"}>No Comments yet...</Text> :
-                                    <Divider justifySelf={"flex-end"} my={4} bg={"gray.800"} />
-                                }
-                                <FeedPostFooter likes={likes} caption={caption} comments={comments} fullName={userProfile.fullName} />
+                                <FeedPostFooter post={post} fullName={userProfile.fullName} />
                             </Flex>
                         </Flex>
                     </ModalBody>

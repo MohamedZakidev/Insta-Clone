@@ -6,7 +6,6 @@ import { Link as RouterLink, useParams } from "react-router-dom"
 import useGetUserProfileByUid from "../../hooks/useGetUserProfileByUid"
 
 function ProfilePage() {
-
     const { uid } = useParams()
     const { isLoading, userProfile } = useGetUserProfileByUid(uid)
 
