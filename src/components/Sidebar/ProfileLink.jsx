@@ -1,10 +1,10 @@
 import { Avatar, Box, Link, Tooltip } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import useAuthStore from "../../store/authStore";
+import { auth } from "../../firebase/firebase";
 
 const ProfileLink = () => {
     const authUser = useAuthStore((state) => state.user);
-
     return (
         <Tooltip
             hasArrow
@@ -16,7 +16,7 @@ const ProfileLink = () => {
         >
             <Link
                 display={"flex"}
-                to={`/${authUser?.uid}`}
+                to={`/${authUser?.username}`}
                 as={RouterLink}
                 alignItems={"center"}
                 gap={4}

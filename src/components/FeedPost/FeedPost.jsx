@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import styles from "./feedpost.module.css"
-import { Avatar, Box, Button, Flex, Image, Input, InputGroup, InputRightElement, Skeleton, SkeletonCircle, Text } from "@chakra-ui/react"
-import { CommentLogo, NotificationsLogo, UnlikeLogo } from "../../../public/assets/constants"
+import { Avatar, Button, Flex, Image, Skeleton, SkeletonCircle, Text } from "@chakra-ui/react"
 import FeedPostFooter from "./FeedPostFooter"
 
 function FeedPost() {

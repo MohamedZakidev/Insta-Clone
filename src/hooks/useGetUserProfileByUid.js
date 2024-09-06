@@ -1,31 +1,22 @@
 import { useEffect, useState } from "react"
 import useShowToast from "./useShowToast"
-import { collection, getDocs, query, where } from "firebase/firestore"
+import { doc, getDoc } from "firebase/firestore"
 import { firestore } from "../firebase/firebase"
-import userProfileStore from "../store/userProfileStore"
 
-function useGetUserProfileByUid(uid) {
+function useGetUserProfileById(uid) {
     const [isLoading, setIsLoading] = useState(true)
+    const [userProfile, setUserProfile] = useState({})
+
     const showToast = useShowToast()
-    const { userProfile, setUserProfile } = userProfileStore()
 
     useEffect(() => {
         async function getUserProfile() {
             setIsLoading(true)
             try {
-                const q = query(collection(firestore, "users"), where("uid", "==", uid))
-                const querySnapshot = await getDocs(q)
-
-                if (querySnapshot.empty) {
-                    setUserProfile(null)
-                    return
+                const userRef = await getDoc(doc(firestore, "users", uid))
+                if (userRef.exists()) {
+                    setUserProfile(userRef.data())
                 }
-                let userDoc
-                querySnapshot.forEach(doc => {
-                    userDoc = doc.data();
-                })
-                setUserProfile(userDoc)
-
             } catch (error) {
                 showToast("Error", error.message, "error")
             } finally {
@@ -36,7 +27,7 @@ function useGetUserProfileByUid(uid) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [uid])
 
-    return { isLoading, userProfile }
+    return { isLoading, userProfile, setUserProfile }
 }
 
-export default useGetUserProfileByUid
+export default useGetUserProfileById

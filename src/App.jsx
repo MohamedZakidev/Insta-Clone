@@ -17,7 +17,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={authUser ? <Home /> : <Navigate to={"auth"} />} />
             <Route path="auth" element={authUser ? <Navigate to="/" /> : <AuthPage />} />
-            <Route path=":uid" element={<ProfilePage />} />
+            <Route path=":username" element={<ProfilePage />} />
           </Route>
         </Routes>
       </BrowserRouter>

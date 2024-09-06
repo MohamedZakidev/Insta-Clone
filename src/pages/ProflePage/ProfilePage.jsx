@@ -3,11 +3,11 @@ import ProfileHeader from "../../components/Profile/ProfileHeader"
 import ProfileTabs from "../../components/Profile/ProfileTabs"
 import ProfilePosts from "../../components/Profile/ProfilePosts"
 import { Link as RouterLink, useParams } from "react-router-dom"
-import useGetUserProfileByUid from "../../hooks/useGetUserProfileByUid"
+import useGetUserProfileByUsername from "../../hooks/useGetUserProfileByUsername"
 
 function ProfilePage() {
-    const { uid } = useParams()
-    const { isLoading, userProfile } = useGetUserProfileByUid(uid)
+    const { username } = useParams()
+    const { isLoading, userProfile } = useGetUserProfileByUsername(username)
 
     const userNotFound = !isLoading && !userProfile
     if (userNotFound) {

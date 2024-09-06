@@ -2,7 +2,7 @@ import { Avatar, Button, Divider, Flex, GridItem, Image, Modal, ModalBody, Modal
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import Comment from "../Comment";
+import Comment from "../Comment/Comment"
 import FeedPostFooter from "../FeedPost/FeedPostFooter";
 import userProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/authStore";

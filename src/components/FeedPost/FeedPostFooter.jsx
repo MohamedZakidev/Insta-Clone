@@ -11,11 +11,7 @@ function FeedPostFooter({ post, fullName }) {
     const [likesCount, setLikesCount] = useState(0)
     const { pathname } = useLocation()
 
-    // const inputRefValue = inputRef.current?.value
     const { isLoading, handlePostComment } = usePostComment()
-    const showToast = useShowToast()
-
-    const { caption, likes, comments, id } = post
 
     function handleLikes() {
         if (isLiked) {
@@ -28,12 +24,8 @@ function FeedPostFooter({ post, fullName }) {
     }
 
     async function handleSubmitComment() {
-        try {
-            await handlePostComment(id, comment)
-            setComment("")
-        } catch (error) {
-            showToast("Error", error.message, "error")
-        }
+        await handlePostComment(post.id, comment);
+        setComment("");
     }
 
 
@@ -50,7 +42,7 @@ function FeedPostFooter({ post, fullName }) {
             <Text fontWeight={600} fontSize={"sm"}>{likesCount ? likesCount === 1 ? `${likesCount} like` : `${likesCount} likes` : null}</Text>
             <Text fontSize={"sm"} fontWeight={700} maxW={"40ch"}>
                 {fullName}
-                <Text as={"span"} fontWeight={400} ml={3}>{caption}</Text>
+                <Text as={"span"} fontWeight={400} ml={3}>{post?.caption}</Text>
             </Text>
             {pathname === "/" ? <Text color={"gray.500"} fontSize={"sm"}>Veiw all 100 comments</Text> : null}
             <InputGroup>
