@@ -29,7 +29,6 @@ function Comment({ comment }) {
         </Flex>
     )
 }
-
 export default Comment
 
 const CommentSkeleton = () => {
