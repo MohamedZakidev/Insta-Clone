@@ -1,28 +1,19 @@
 import { Box, Button, Flex, Input, InputGroup, InputRightElement, Text } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from '../../../public/assets/constants'
 import { useLocation } from 'react-router-dom'
 import usePostComment from '../../hooks/usePostComment'
-import useShowToast from '../../hooks/useShowToast'
+import useLikePost from '../../hooks/useLikePost'
 
 function FeedPostFooter({ post, fullName }) {
-    const [isLiked, setIsLiked] = useState(false)
     const [comment, setComment] = useState("")
-    const [likesCount, setLikesCount] = useState(0)
+    const commentRef = useRef(null)
     const { pathname } = useLocation()
 
     const { isLoading, handlePostComment } = usePostComment()
 
-    function handleLikes() {
-        if (isLiked) {
-            setIsLiked(false)
-            setLikesCount(prev => prev - 1)
-        } else {
-            setIsLiked(true)
-            setLikesCount(prev => prev + 1)
-        }
-    }
-
+    const { isLiked, likesCount, handleLikePost } = useLikePost(post)
+    console.log(isLiked)
     async function handleSubmitComment() {
         await handlePostComment(post.id, comment);
         setComment("");
@@ -32,10 +23,10 @@ function FeedPostFooter({ post, fullName }) {
     return (
         <Flex p={"0 1em"} flexDirection={"column"} gap={2} mt={"auto"}>
             <Flex gap={4}>
-                <Box onClick={handleLikes} cursor={"pointer"}>
+                <Box onClick={handleLikePost} cursor={"pointer"}>
                     {!isLiked ? <NotificationsLogo /> : <UnlikeLogo />}
                 </Box>
-                <Box cursor={"pointer"}>
+                <Box cursor={"pointer"} onClick={() => commentRef.current.focus()}>
                     <CommentLogo />
                 </Box>
             </Flex>
@@ -53,6 +44,7 @@ function FeedPostFooter({ post, fullName }) {
                     _placeholder={{
                         color: "gray.500"
                     }}
+                    ref={commentRef}
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                 />

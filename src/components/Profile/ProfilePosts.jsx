@@ -35,6 +35,7 @@ function ProfilePosts() {
 }
 
 export default ProfilePosts
+
 const NoPostsFound = () => {
     return (
         <Flex flexDir='column' textAlign={"center"} mx={"auto"} mt={10}>

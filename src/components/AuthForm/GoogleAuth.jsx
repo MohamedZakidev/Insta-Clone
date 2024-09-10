@@ -6,7 +6,7 @@ import useAuthStore from "../../store/authStore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 function GoogleAuth({ prefix }) {
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [signInWithGoogle, , , error] = useSignInWithGoogle(auth);
     const showToast = useShowToast()
     const loginUser = useAuthStore(state => state.login)
 
