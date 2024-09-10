@@ -13,7 +13,7 @@ function FeedPostFooter({ post, fullName }) {
     const { isLoading, handlePostComment } = usePostComment()
 
     const { isLiked, likesCount, handleLikePost } = useLikePost(post)
-    console.log(isLiked)
+
     async function handleSubmitComment() {
         await handlePostComment(post.id, comment);
         setComment("");

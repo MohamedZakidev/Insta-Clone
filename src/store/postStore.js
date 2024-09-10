@@ -15,7 +15,29 @@ const usePostStore = create((set) => ({
                     } :
                     post
             })
-    }))
+    })),
+    addLike: (postId, userUid) => set(state => ({
+        posts:
+            state.posts.map(post => {
+                return post.id === postId ?
+                    {
+                        ...post,
+                        likes: [...post.likes, userUid]
+                    } :
+                    post
+            })
+    })),
+    removeLike: (postId, userUid) => set(state => ({
+        posts:
+            state.posts.map(post => {
+                return post.id === postId ?
+                    {
+                        ...post,
+                        likes: post.likes.filter(uid => uid !== userUid)
+                    } :
+                    post
+            })
+    })),
     //set post
 }))
 
