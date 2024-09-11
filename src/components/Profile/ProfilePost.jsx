@@ -113,10 +113,10 @@ function ProfilePost({ post }) {
                             <Flex flex={1} flexDirection={"column"} px={10} pt={4} display={{ base: "none", md: "flex" }}>
                                 <Flex alignItems={"center"} justifyContent={"space-between"}>
                                     <Flex alignItems={"center"} gap={2}>
-                                        <Avatar src={userProfile.profilePicURL} size={"sm"} name={userProfile.username} />
-                                        <Text fontWeight={"bold"} fontSize={12}>{userProfile.username}</Text>
+                                        <Avatar src={userProfile?.profilePicURL} size={"sm"} name={userProfile?.username} />
+                                        <Text fontWeight={"bold"} fontSize={12}>{userProfile?.username}</Text>
                                     </Flex>
-                                    {authUser?.uid === userProfile.uid && (
+                                    {authUser?.uid === userProfile?.uid && (
                                         <Button
                                             size={"sm"}
                                             bg={"transparent"}
@@ -138,7 +138,7 @@ function ProfilePost({ post }) {
                                             <Comment key={index} comment={comment} />
                                         ))}
                                 </VStack>
-                                <FeedPostFooter post={post} fullName={userProfile.fullName} />
+                                <FeedPostFooter post={post} fullName={userProfile?.fullName} />
                             </Flex>
                         </Flex>
                     </ModalBody>

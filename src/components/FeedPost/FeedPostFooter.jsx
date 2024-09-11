@@ -21,7 +21,7 @@ function FeedPostFooter({ post, fullName }) {
 
 
     return (
-        <Flex p={"0 1em"} flexDirection={"column"} gap={2} mt={"auto"}>
+        <Flex p={"0 1em"} flexDirection={"column"} mt={"auto"}>
             <Flex gap={4}>
                 <Box onClick={handleLikePost} cursor={"pointer"}>
                     {!isLiked ? <NotificationsLogo /> : <UnlikeLogo />}

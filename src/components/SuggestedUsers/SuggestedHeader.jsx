@@ -11,7 +11,7 @@ function SuggestedHeader() {
         return (
             <Flex justifyContent={"space-between"} alignItems={"center"}>
                 <Link as={RouterLink} to={user.username}>
-                    <Avatar size={"sm"} src={user.profilePicURL} />
+                    <Avatar size={"sm"} src={user.profilePicURL} name={user.fullName} bg={"grey"} />
                 </Link>
                 <Link as={RouterLink} to={user.username}>
                     <Text fontWeight={"bold"}>{user.username}</Text>

@@ -8,8 +8,8 @@ import usePostStore from '../store/postStore';
 function useLikePost(post) {
     const [isUpdating, setIsUpdating] = useState(false);
     const authUser = useAuthStore((state) => state.user);
-    const [isLiked, setIsLiked] = useState(post?.likes.includes(authUser?.uid))
-    const [likesCount, setLikesCount] = useState(post?.likes.length)
+    const [isLiked, setIsLiked] = useState(post?.likes.includes(authUser?.uid)) // reminder to delete ? after post
+    const [likesCount, setLikesCount] = useState(post?.likes.length) // reminder to delete ? after post
     const showToast = useShowToast();
 
     const addLike = usePostStore(state => state.addLike)
