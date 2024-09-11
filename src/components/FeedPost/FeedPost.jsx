@@ -12,7 +12,7 @@ function FeedPost({ post }) {
             <div className={styles.feedPostBody}>
                 <Image src={post.imageURL} alt="feed post image" />
             </div>
-            <FeedPostFooter />
+            <FeedPostFooter post={post} userProfile={userProfile} />
         </>
     )
 }

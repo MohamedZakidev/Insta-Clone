@@ -1,14 +1,12 @@
 import { Box, Button, Flex, Input, InputGroup, InputRightElement, Text } from '@chakra-ui/react'
 import { useRef, useState } from 'react'
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from '../../../public/assets/constants'
-import { useLocation } from 'react-router-dom'
 import usePostComment from '../../hooks/usePostComment'
 import useLikePost from '../../hooks/useLikePost'
 
-function FeedPostFooter({ post, fullName }) {
+function FeedPostFooter({ post, userProfile, isProfilePage }) {
     const [comment, setComment] = useState("")
     const commentRef = useRef(null)
-    const { pathname } = useLocation()
 
     const { isLoading, handlePostComment } = usePostComment()
 
@@ -21,7 +19,7 @@ function FeedPostFooter({ post, fullName }) {
 
 
     return (
-        <Flex p={"0 1em"} flexDirection={"column"} mt={"auto"}>
+        <Flex flexDirection={"column"} mt={"auto"} gap={1} pt={3} borderTop={"1px solid gray"} w={"full"}>
             <Flex gap={4}>
                 <Box onClick={handleLikePost} cursor={"pointer"}>
                     {!isLiked ? <NotificationsLogo /> : <UnlikeLogo />}
@@ -32,10 +30,22 @@ function FeedPostFooter({ post, fullName }) {
             </Flex>
             <Text fontWeight={600} fontSize={"sm"}>{likesCount ? likesCount === 1 ? `${likesCount} like` : `${likesCount} likes` : null}</Text>
             <Text fontSize={"sm"} fontWeight={700} maxW={"40ch"}>
-                {fullName}
+                {userProfile.username}
                 <Text as={"span"} fontWeight={400} ml={3}>{post?.caption}</Text>
             </Text>
-            {pathname === "/" ? <Text color={"gray.500"} fontSize={"sm"}>Veiw all 100 comments</Text> : null}
+            {post.comments.length > 0 ?
+                (
+                    <Text color={"gray.500"} fontSize={"sm"} cursor={"pointer"}>
+                        Veiw {post.comments.length === 1 ? "" : "all"} {post.comments.length} {post.comments.length === 1 ? "comment" : "comments"}
+                    </Text>
+                ) :
+                !isProfilePage &&
+                (
+                    <Text color={"gray.500"} fontSize={"sm"}>
+                        No comments yet
+                    </Text>
+                )
+            }
             <InputGroup>
                 <Input
                     fontSize={14}

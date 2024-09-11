@@ -18,7 +18,7 @@ function Comment({ comment }) {
                             {userProfile.username}
                         </Text>
                     </Link>
-                    <Text fontSize={14}>
+                    <Text fontSize={14} whiteSpace={"initial"} maxW={"30ch"}>
                         {comment.comment}
                     </Text>
                 </Flex>

@@ -1,7 +1,7 @@
 import { getTime } from "../../utils/getTime"
 import styles from "./feedpost.module.css"
 import { Link as RouterLink } from "react-router-dom"
-import { Avatar, Button, Flex, Link, SkeletonCircle, Text } from '@chakra-ui/react'
+import { Avatar, Button, Flex, Link, Text } from '@chakra-ui/react'
 import useFollowUser from "../../hooks/useFollowUser"
 
 function FeedPostHeader({ post, creatorProfile }) {

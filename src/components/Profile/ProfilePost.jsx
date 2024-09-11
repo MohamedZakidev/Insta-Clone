@@ -12,6 +12,7 @@ import { deleteObject, ref } from "firebase/storage";
 import { firestore, storage } from "../../firebase/firebase";
 import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import usePostStore from "../../store/postStore";
+import { getTime } from "../../utils/getTime";
 
 function ProfilePost({ post }) {
     const { likes, comments, imageURL } = post
@@ -115,6 +116,9 @@ function ProfilePost({ post }) {
                                     <Flex alignItems={"center"} gap={2}>
                                         <Avatar src={userProfile?.profilePicURL} size={"sm"} name={userProfile?.username} />
                                         <Text fontWeight={"bold"} fontSize={12}>{userProfile?.username}</Text>
+                                        <Text color={"gray.500"} fontSize={"12px"}>
+                                            {getTime(post.createdAt)}
+                                        </Text>
                                     </Flex>
                                     {authUser?.uid === userProfile?.uid && (
                                         <Button
@@ -131,14 +135,14 @@ function ProfilePost({ post }) {
                                     )}
                                 </Flex>
                                 <Divider orientation='horizontal' my={4} bg={"gray.500"} />
-                                <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
+                                <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflowY={"scroll"}>
                                     {comments.length === 0 ?
                                         <Text color={"whiteAlpha.500"} alignSelf={"center"}>No Comments yet...</Text> :
                                         comments.map((comment, index) => (
                                             <Comment key={index} comment={comment} />
                                         ))}
                                 </VStack>
-                                <FeedPostFooter post={post} fullName={userProfile?.fullName} />
+                                <FeedPostFooter post={post} userProfile={userProfile && userProfile} isProfilePage={true} />
                             </Flex>
                         </Flex>
                     </ModalBody>
