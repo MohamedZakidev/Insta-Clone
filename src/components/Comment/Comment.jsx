@@ -13,18 +13,20 @@ function Comment({ comment }) {
             </Link>
             <Flex direction={"column"}>
                 <Flex gap={2}>
-                    <Link as={RouterLink} to={`/${userProfile.username}`}>
-                        <Text fontSize={12} fontWeight={"bold"}>
-                            {userProfile.username}
+                    <Flex direction={"column"}>
+                        <Link as={RouterLink} to={`/${userProfile.username}`}>
+                            <Text fontSize={12} fontWeight={"bold"}>
+                                {userProfile.username}
+                            </Text>
+                        </Link>
+                        <Text fontSize={12} color={"gray"}>
+                            {getTime(comment.createdAt)}
                         </Text>
-                    </Link>
+                    </Flex>
                     <Text fontSize={14} whiteSpace={"initial"} maxW={"30ch"}>
                         {comment.comment}
                     </Text>
                 </Flex>
-                <Text fontSize={12} color={"gray"}>
-                    {getTime(comment.createdAt)}
-                </Text>
             </Flex>
         </Flex>
     )

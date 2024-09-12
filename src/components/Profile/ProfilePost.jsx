@@ -17,6 +17,7 @@ import { getTime } from "../../utils/getTime";
 function ProfilePost({ post }) {
     const { likes, comments, imageURL } = post
     const { isOpen, onOpen, onClose } = useDisclosure();
+
     const authUser = useAuthStore(state => state.user)
     const userProfile = userProfileStore(state => state.userProfile)
     const showToast = useShowToast()

@@ -1,12 +1,19 @@
-import { Box, Button, Flex, Input, InputGroup, InputRightElement, Text } from '@chakra-ui/react'
+import { Box, Button, Divider, Flex, Input, InputGroup, InputRightElement, Text, useDisclosure } from '@chakra-ui/react'
 import { useRef, useState } from 'react'
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from '../../../public/assets/constants'
 import usePostComment from '../../hooks/usePostComment'
 import useLikePost from '../../hooks/useLikePost'
+import useAuthStore from '../../store/authStore'
+import CommentsModal from '../Modals/CommentsModal'
 
 function FeedPostFooter({ post, userProfile, isProfilePage }) {
     const [comment, setComment] = useState("")
+
     const commentRef = useRef(null)
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const authUser = useAuthStore((state) => state.user);
 
     const { isLoading, handlePostComment } = usePostComment()
 
@@ -19,7 +26,8 @@ function FeedPostFooter({ post, userProfile, isProfilePage }) {
 
 
     return (
-        <Flex flexDirection={"column"} mt={"auto"} gap={1} pt={3} borderTop={"1px solid gray"} w={"full"}>
+        <Flex flexDirection={"column"} mt={"auto"} gap={1} pt={3} w={"full"}>
+            {isProfilePage && <Divider orientation='horizontal' my={4} bg={"gray.500"} />}
             <Flex gap={4}>
                 <Box onClick={handleLikePost} cursor={"pointer"}>
                     {!isLiked ? <NotificationsLogo /> : <UnlikeLogo />}
@@ -35,7 +43,7 @@ function FeedPostFooter({ post, userProfile, isProfilePage }) {
             </Text>
             {post.comments.length > 0 ?
                 (
-                    <Text color={"gray.500"} fontSize={"sm"} cursor={"pointer"}>
+                    <Text color={"gray.500"} fontSize={"sm"} cursor={"pointer"} onClick={onOpen}>
                         Veiw {post.comments.length === 1 ? "" : "all"} {post.comments.length} {post.comments.length === 1 ? "comment" : "comments"}
                     </Text>
                 ) :
@@ -46,7 +54,9 @@ function FeedPostFooter({ post, userProfile, isProfilePage }) {
                     </Text>
                 )
             }
-            <InputGroup>
+            {isOpen ? <CommentsModal isOpen={isOpen} onClose={onClose} post={post} /> : null}
+
+            {authUser && <InputGroup>
                 <Input
                     fontSize={14}
                     variant={"flushed"}
@@ -75,7 +85,7 @@ function FeedPostFooter({ post, userProfile, isProfilePage }) {
                         </Button>
                     </InputRightElement>
                 }
-            </InputGroup>
+            </InputGroup>}
         </Flex>
     )
 }

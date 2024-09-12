@@ -1,6 +1,5 @@
 import FeedPosts from "../../components/FeedPost/FeedPosts"
 import SuggestedUsers from "../../components/SuggestedUsers"
-import useGetFeedPosts from "../../hooks/useGetFeedPosts"
 import styles from "../../styles/home.module.css"
 
 function Home() {
