@@ -1,8 +1,9 @@
-import { Avatar, Box, Button, Flex, Text } from "@chakra-ui/react"
+import { Avatar, Box, Button, Flex, Link, Text } from "@chakra-ui/react"
 import useFollowUser from "../../hooks/useFollowUser"
 import useAuthStore from "../../store/authStore"
+import { Link as RouterLink } from "react-router-dom"
 
-function SuggestedUser({ user, setUser = null }) {
+function SuggestedUser({ user, setUser }) {
     const { isUpdating, isFollowing, handleFollowUSer } = useFollowUser(user.uid)
     const authUser = useAuthStore((state) => state.user)
 
@@ -19,9 +20,13 @@ function SuggestedUser({ user, setUser = null }) {
     return (
         <Flex justifyContent={"space-between"} alignItems={"center"}>
             <Flex gap={3} alignItems={"center"}>
-                <Avatar bg={"grey"} src={user.profilePicURL} name={user.fullName} />
+                <Link as={RouterLink} to={`/${user.username}`}>
+                    <Avatar bg={"grey"} src={user.profilePicURL} name={user.fullName} />
+                </Link>
                 <Box>
-                    <Text>{user.fullName}</Text>
+                    <Link as={RouterLink} to={`/${user.username}`}>
+                        <Text>{user.fullName}</Text>
+                    </Link>
                     <Text fontSize={11} color={"gray.500"} >{user.followers.length} followers</Text>
                 </Box>
             </Flex>

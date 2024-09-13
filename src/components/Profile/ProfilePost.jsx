@@ -98,7 +98,7 @@ function ProfilePost({ post }) {
             >
                 <ModalOverlay />
                 <ModalContent bg={"black"} border={"1px solid"} borderColor={"whiteAlpha.200"}>
-                    <ModalBody p={0} >
+                    <ModalBody p={0}>
                         <Flex gap={4} w={{ base: "90%", sm: "70%", md: "full" }} mx={"auto"} maxHeight={"90vh"} minHeight={"50vh"}>
                             <Flex
                                 border={"1px solid"}
