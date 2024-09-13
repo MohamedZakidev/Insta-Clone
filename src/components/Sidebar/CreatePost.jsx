@@ -10,11 +10,14 @@ import userProfileStore from "../../store/userProfileStore";
 import { addDoc, arrayUnion, collection, doc, updateDoc } from "firebase/firestore";
 import { firestore, storage } from "../../firebase/firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { useLocation } from "react-router-dom";
 
 const CreatePost = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [caption, setCaption] = useState("")
+
     const inputRef = useRef()
+
     const { selectedFile, setSelectedFile, handleImageChange } = usePreviewImg()
     const showToast = useShowToast()
 
@@ -104,6 +107,7 @@ function useCreatePost() {
     const authUser = useAuthStore((state) => state.user)
     const createPost = usePostStore((state) => state.createPost)
     const userProfile = userProfileStore((state) => state.userProfile)
+    const { pathname } = useLocation()
 
     const addPost = userProfileStore((state) => state.addPost)
     //pathname later
@@ -139,9 +143,11 @@ function useCreatePost() {
             newPost.imageURL = downloadURL;
 
             //8. add the post to the store post so we fetch posts from that later on i think
-            createPost({ ...newPost, id: postDocRef.id })
+            if (userProfile.uid === authUser.uid) {
+                createPost({ ...newPost, id: postDocRef.id })
+            }
             //9. update userProfile to update the interface on the profile page
-            if (userProfile) {
+            if (pathname !== "/" && userProfile.uid === authUser.uid) {
                 addPost({ ...newPost, id: postDocRef.id })
             }
 
